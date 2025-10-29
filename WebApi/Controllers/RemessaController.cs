@@ -11,9 +11,9 @@ public class RemessaController : ControllerBase
         
     }
 
-    [HttpPost]
-    public async Task<IActionResult> GerarRemessa([FromBody] Remessa remessa)
-    {
+    //[HttpPost]
+    //public async Task<IActionResult> GerarRemessa([FromBody] Remessa remessa)
+    //{
 
-    }
+    //}
 }
