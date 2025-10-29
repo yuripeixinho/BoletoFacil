@@ -1,0 +1,73 @@
+# Compiled files
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
+.vscode/
+
+# Logs and databases
+*.log
+*.tlog
+*.sqlite
+*.mdf
+*.ldf
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+ARM/
+ARM64/
+
+# Package dependencies
+packages/
+!packages/repositories.config
+
+# Dotnet artifacts
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+*.csproj.nuget.dgspec.json
+*.csproj.nuget.g.props
+*.csproj.nuget.g.targets
+
+# Rider & JetBrains
+.idea/
+*.sln.iml
+
+# macOS / Linux files
+.DS_Store
+*.swp
+._*
+
+# Coverage and test results
+TestResults/
+Coverage/
+*.coverage
+*.coveragexml
+*.codecoverage
+
+# Publish artifacts
+publish/
+wwwroot/
+
+# Entity Framework Migrations
+Migrations/
+
+# Secrets & Configs
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+.env
+
+# Docker & Kubernetes
+.dockerignore
+docker-compose.override.yml
