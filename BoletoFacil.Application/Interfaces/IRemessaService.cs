@@ -1,8 +1,8 @@
-﻿using BoletoFacil.Domain.Core.Entities;
+﻿using BoletoFacil.Application.DTOs;
 
 namespace BoletoFacil.Application.Interfaces;
 
 public interface IRemessaService
 {
-    Task<string> GerarRemessaAsync(Remessa remessa); // serviço central que criará as remessas baseadas no banco.
+    Task<string> GenerateRemessaAsync(RemessaDTO remessa); // serviço central que criará as remessas baseadas no banco.
 }

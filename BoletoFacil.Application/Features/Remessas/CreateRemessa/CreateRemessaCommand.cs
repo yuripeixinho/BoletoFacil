@@ -1,6 +1,7 @@
-﻿namespace BoletoFacil.Application.Features.Remessas.CreateRemessa;
+﻿using BoletoFacil.Application.DTOs;
+using MediatR;
 
-public class CreateRemessaCommand
-{
+namespace BoletoFacil.Application.Features.Remessas.CreateRemessa;
 
-}
+public record CreateRemessaCommand(RemessaDTO Remessa) : IRequest<string>;
+

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BoletoFacil.Application.DTOs;
+using BoletoFacil.Application.Features.Remessas.CreateRemessa;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BoletoFacil.Api.Controllers;
 
@@ -6,14 +9,19 @@ namespace BoletoFacil.Api.Controllers;
 [ApiController]
 public class RemessaController : ControllerBase
 {
-    public RemessaController()
+    private readonly IMediator _mediator;
+
+    public RemessaController(IMediator mediator)
     {
-        
+        _mediator = mediator;   
     }
 
-    //[HttpPost]
-    //public async Task<IActionResult> GerarRemessa([FromBody] Remessa remessa)
-    //{
+    [HttpPost("generate")]
+    public async Task<IActionResult> GenerateRemessa([FromBody] RemessaDTO remessaDTO)
+    {
+        var command = new CreateRemessaCommand(remessaDTO);
+        var result = await _mediator.Send(command);
 
-    //}
+        return Ok(result);      
+    }
 }

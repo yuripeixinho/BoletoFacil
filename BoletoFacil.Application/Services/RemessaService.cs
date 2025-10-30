@@ -1,23 +1,26 @@
-﻿using BoletoFacil.Application.Interfaces;
-using BoletoFacil.Domain.Core.Entities;
-using System.Text;
+﻿using BoletoFacil.Application.DTOs;
+using BoletoFacil.Application.Factories.Interfaces;
+using BoletoFacil.Application.Interfaces;
 
 namespace BoletoFacil.Application.Services;
 
 public class RemessaService : IRemessaService
 {
+    private readonly IRemessaFactory _remessaFactory;
 
-
-
-    public Task<string> GerarRemessaAsync(Remessa remessa)
+    public RemessaService(IRemessaFactory remessaFactory)
     {
-        var gerador = _factory.CriarGerador(remessa);
-        var conteudo = gerador.GerarRemessa(remessa);
+        _remessaFactory = remessaFactory;   
+    }
 
-        //var caminho = Path.Combine("C:\\Remessas", $"remessa_{DateTime.Now:yyyyMMddHHmmss}.txt");
-        //Directory.CreateDirectory(Path.GetDirectoryName(caminho)!);
-        //await File.WriteAllTextAsync(caminho, conteudo, Encoding.ASCII);
+    public async Task<string> GenerateRemessaAsync(RemessaDTO remessaDTO)
+    {
+        var remessafactory =  _remessaFactory.CriarRemessa(remessaDTO.Banco);
+        var remessaStrategy = remessafactory.GerarRemessa(remessaDTO);
 
-        //return caminho;
+        var path = Path.Combine("C:\\Remessas", $"remessa_{DateTime.Now:yyyyMMddHHmmss}.txt");
+        await File.WriteAllTextAsync(path, remessaStrategy);
+
+        return path;
     }
 }
