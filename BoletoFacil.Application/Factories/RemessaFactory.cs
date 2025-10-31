@@ -1,14 +1,14 @@
 ﻿using BoletoFacil.Application.Factories.Interfaces;
-using BoletoFacil.Application.Strategies.CreateRemessa;
+using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts;
 
 namespace BoletoFacil.Application.Factories;
 
 public class RemessaFactory : IRemessaFactory
 {
-    public IRemessaCreate CriarRemessa(string banco) => banco switch
+    public IRemessaGenerator CriarRemessaParaOBanco(string banco) => banco switch
     {
-        "Bradesco" => new BradescoRemessaCreate(),
-        "BancoDoBrasil" => new BancoDoBrasilRemessaCreate(),
+        "Bradesco" => new BradescoRemessaGenerator(),
+        "BancoDoBrasil" => new BancoDoBrasilRemessaGenerator(),
         _ => throw new InvalidOperationException($"Banco {banco} não suportado.")
     };
 }

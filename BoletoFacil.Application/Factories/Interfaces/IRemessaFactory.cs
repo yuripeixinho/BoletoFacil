@@ -1,8 +1,8 @@
-﻿using BoletoFacil.Application.Strategies.CreateRemessa;
+﻿using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts;
 
 namespace BoletoFacil.Application.Factories.Interfaces;
 
 public interface IRemessaFactory
 {
-    IRemessaCreate CriarRemessa(string banco);
+    IRemessaGenerator CriarRemessaParaOBanco(string banco);
 }

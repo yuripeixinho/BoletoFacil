@@ -14,4 +14,8 @@
     <ProjectReference Include="..\BoletoFacil.Api.Domain\BoletoFacil.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Layouts\Bradesco\" />
+  </ItemGroup>
+
 </Project>

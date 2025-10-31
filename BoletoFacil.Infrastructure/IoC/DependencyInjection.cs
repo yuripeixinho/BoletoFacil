@@ -2,7 +2,7 @@
 using BoletoFacil.Application.Factories.Interfaces;
 using BoletoFacil.Application.Interfaces;
 using BoletoFacil.Application.Services;
-using BoletoFacil.Application.Strategies.CreateRemessa;
+using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,8 +21,8 @@ public static class DependencyInjection
         services.AddScoped<IRemessaFactory, RemessaFactory>();
 
         // Strategies
-        services.AddScoped<IRemessaCreate, BancoDoBrasilRemessaCreate>();
-        services.AddScoped<IRemessaCreate, BradescoRemessaCreate>();
+        services.AddScoped<IRemessaGenerator, BancoDoBrasilRemessaGenerator>();
+        services.AddScoped<IRemessaGenerator, BradescoRemessaGenerator>();
 
         // MediatR
         services.AddMediatR(cfg =>

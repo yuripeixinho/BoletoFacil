@@ -1,0 +1,39 @@
+{
+  "header": [
+    {
+      "nome": "codigo_banco",
+      "inicio": 1,
+      "tamanho": 3,
+      "valor": "237",
+      "preenchimento": "0"
+    },
+    {
+      "nome": "lote_servico",
+      "inicio": 4,
+      "tamanho": 4,
+      "valor": "0000",
+      "preenchimento": "0"
+    },
+    {
+      "nome": "tipo_registro",
+      "inicio": 8,
+      "tamanho": 1,
+      "valor": "0"
+    },
+    {
+      "nome": "codigo_empresa",
+      "inicio": 18,
+      "tamanho": 15,
+      "fonte": "planilha",
+      "coluna": 1,
+      "preenchimento": "0"
+    },
+    {
+      "nome": "nome_empresa",
+      "inicio": 33,
+      "tamanho": 30,
+      "fonte": "planilha",
+      "coluna": 2
+    }
+  ]
+}
