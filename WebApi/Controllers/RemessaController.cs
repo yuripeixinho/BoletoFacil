@@ -16,10 +16,10 @@ public class RemessaController : ControllerBase
         _mediator = mediator;   
     }
 
-    [HttpPost("generate")]
-    public async Task<IActionResult> GenerateRemessa([FromBody] RemessaDTO remessaDTO)
+    [HttpPost("excel/generate/240")]
+    public async Task<IActionResult> GerarCnab240PorExcel([FromForm] LeituraExcelDTO ExcelRemessaDTO)
     {
-        var command = new CreateRemessaCommand(remessaDTO);
+        var command = new CreateRemessaCommand(ExcelRemessaDTO);
         var result = await _mediator.Send(command);
 
         return Ok(result);      

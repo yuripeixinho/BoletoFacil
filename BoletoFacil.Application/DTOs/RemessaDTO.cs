@@ -2,6 +2,10 @@
 
 public class RemessaDTO
 {
-    public DateTime DataGeracao { get; set; } = DateTime.Now;
-    public required string Banco { get; set; }
+    public BBHeader240DTO? Header { get; set; }
+    //public required IEnumerable<DetalheDTO> Detalhe { get; set; }   
+    //public required TrailerDTO Trailer { get; set; }
+    public LeituraExcelDTO? CnabExcel { get; set; }
 }
+
+

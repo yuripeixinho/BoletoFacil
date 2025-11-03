@@ -1,4 +1,4 @@
-﻿using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts;
+﻿using BoletoFacil.Application.Strategies.CreateRemessa;
 
 namespace BoletoFacil.Application.Factories.Interfaces;
 

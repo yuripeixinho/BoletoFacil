@@ -1,42 +1,33 @@
 ﻿using BoletoFacil.Application.DTOs;
 using BoletoFacil.Application.Factories.Interfaces;
-using BoletoFacil.Application.Interfaces;
+using BoletoFacil.Application.Interfaces.Repositories;
+using BoletoFacil.Application.Interfaces.Services;
 
 namespace BoletoFacil.Application.Services;
 
 public class RemessaService : IRemessaService
 {
     private readonly IRemessaFactory _remessaFactory;
+    private readonly IExcelRepository _excelRepository;
+    private readonly IArquivoService _arquivoService;   
 
-    public RemessaService(IRemessaFactory remessaFactory)
+    public RemessaService(IRemessaFactory remessaFactory, IExcelRepository excelRepository, IArquivoService arquivoService  )
     {
-        _remessaFactory = remessaFactory;   
+        _remessaFactory = remessaFactory;
+        _excelRepository = excelRepository;
+        _arquivoService = arquivoService;
     }
 
-    public async Task<string> GenerateRemessaAsync(RemessaDTO remessaDTO)
+    public async Task<string> GerarRemessaAsync(LeituraExcelDTO ExcelRemessaDTO)
     {
-        // LER ARQUIVO EXCEL
-        
+        using var stream = ExcelRemessaDTO.LayoutExcel.OpenReadStream();
+        var dadosRemessa = await _excelRepository.ReadExcelAsync(stream);
 
+        var layout = _remessaFactory.CriarRemessaParaOBanco(dadosRemessa.Header.CodigoBanco);
+        var cnab = layout.CarregarLayout(dadosRemessa); // a partir do strategy cria o CNAB
 
+         _arquivoService.ExportarArquivoTXT(cnab);
 
-        // o serviço de gerar os arquivos Header, Detalhe e Trailer
-        // Escolhe qual o banco 
-        var banco =  _remessaFactory.CriarRemessaParaOBanco(remessaDTO.Banco); // escolhe qual strategy (banco usar)
-        var remessa = banco.CarregarLayoutAsync(); // a partir do strategy cria o CNAB
-
-
-
-
-
-
-
-
-
-
-        var path = Path.Combine("C:\\Remessas", $"remessa_{DateTime.Now:yyyyMMddHHmmss}.txt");
-        await File.WriteAllTextAsync(path, remessa);
-
-        return path;
+        return "Arquivo gerado com sucesso";
     }
 }
