@@ -1,4 +1,4 @@
-﻿using BoletoFacil.Application.DTOs;
+﻿using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.Features.Remessas.CreateRemessa;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +16,8 @@ public class RemessaController : ControllerBase
         _mediator = mediator;   
     }
 
-    [HttpPost("excel/generate/240")]
-    public async Task<IActionResult> GerarCnab240PorExcel([FromForm] LeituraExcelDTO ExcelRemessaDTO)
+    [HttpPost("excel/generate")]
+    public async Task<IActionResult> GerarCnabExcel([FromForm] LeituraExcelDTO ExcelRemessaDTO)
     {
         var command = new CreateRemessaCommand(ExcelRemessaDTO);
         var result = await _mediator.Send(command);

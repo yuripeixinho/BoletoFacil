@@ -4,5 +4,5 @@ namespace BoletoFacil.Application.Factories.Interfaces;
 
 public interface IRemessaFactory
 {
-    IRemessaGenerator CriarRemessaParaOBanco(string banco);
+    IRemessaGenerator IdentificarRemessaPorBancoELayout(string banco, string layout);
 }

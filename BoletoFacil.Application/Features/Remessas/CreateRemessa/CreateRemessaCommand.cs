@@ -1,4 +1,4 @@
-﻿using BoletoFacil.Application.DTOs;
+﻿using BoletoFacil.Application.DTOs.Common;
 using MediatR;
 
 namespace BoletoFacil.Application.Features.Remessas.CreateRemessa;

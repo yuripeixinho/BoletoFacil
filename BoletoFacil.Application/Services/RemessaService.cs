@@ -1,4 +1,4 @@
-﻿using BoletoFacil.Application.DTOs;
+﻿using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.Factories.Interfaces;
 using BoletoFacil.Application.Interfaces.Repositories;
 using BoletoFacil.Application.Interfaces.Services;
@@ -18,16 +18,24 @@ public class RemessaService : IRemessaService
         _arquivoService = arquivoService;
     }
 
-    public async Task<string> GerarRemessaAsync(LeituraExcelDTO ExcelRemessaDTO)
+
+    public async Task<string> GerarRemessaAsync(LeituraExcelDTO excelRemessaDTO)
     {
-        using var stream = ExcelRemessaDTO.LayoutExcel.OpenReadStream();
-        var dadosRemessa = await _excelRepository.ReadExcelAsync(stream);
+        var dados = IdentificarBancoELayoutCNAB(excelRemessaDTO);
+       
+        var layout = _remessaFactory.IdentificarRemessaPorBancoELayout(dados.Banco, dados.Layout); // Factory
+        var cnab = layout.CarregarLayoutEspecifico(dados); // A partir da escolha do Factory gera o Strategy para o banco e layout correspondente
 
-        var layout = _remessaFactory.CriarRemessaParaOBanco(dadosRemessa.Header.CodigoBanco);
-        var cnab = layout.CarregarLayout(dadosRemessa); // a partir do strategy cria o CNAB
-
-         _arquivoService.ExportarArquivoTXT(cnab);
+        _arquivoService.ExportarArquivoTXT(cnab);
 
         return "Arquivo gerado com sucesso";
+    }
+
+    private ConfiguracaoRemessaDTO IdentificarBancoELayoutCNAB(LeituraExcelDTO excelRemessaDTO)
+    {
+        using var planilha = excelRemessaDTO.LayoutExcel.OpenReadStream();
+        var dados = _excelRepository.LerPlanilha(planilha);
+
+        return dados;
     }
 }

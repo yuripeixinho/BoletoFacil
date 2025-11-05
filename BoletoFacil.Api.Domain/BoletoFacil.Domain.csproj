@@ -7,12 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BoundedContexts\BancoDoBrasil\Services\" />
-    <Folder Include="BoundedContexts\BancoDoBrasil\Segmentos\" />
-    <Folder Include="BoundedContexts\Bradesco\Segmentos\" />
-    <Folder Include="BoundedContexts\Bradesco\Services\" />
+    <Folder Include="Core\Entities\Bancos\BancoDoBrasil\" />
+    <Folder Include="Core\Entities\Bancos\Itau\CNAB240\" />
     <Folder Include="Core\Interfaces\" />
-    <Folder Include="BoundedContexts\" />
   </ItemGroup>
 
 </Project>

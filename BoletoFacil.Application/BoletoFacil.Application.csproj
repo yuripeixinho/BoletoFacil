@@ -17,11 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\BoundedContexts\BancoDoBrasil\Cnabs\400\" />
+    <Folder Include="DTOs\BoundedContexts\BancoDoBrasil\CNAB400\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="DTOs\BoundedContexts\BancoDoBrasil\Cnabs\240\BBHeader240DTO.cs" />
+    <None Include="DTOs\BoundedContexts\BancoDoBrasil\CNAB240\BBHeader240DTO.cs" />
   </ItemGroup>
 
 </Project>

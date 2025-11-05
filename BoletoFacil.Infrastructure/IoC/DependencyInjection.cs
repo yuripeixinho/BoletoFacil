@@ -5,7 +5,6 @@ using BoletoFacil.Application.Interfaces.Services;
 using BoletoFacil.Application.Services;
 using BoletoFacil.Application.Strategies.CreateRemessa;
 using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.BancoDoBrasil;
-using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Bradesco;
 using BoletoFacil.Infrastructure.Data.Context;
 using BoletoFacil.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +37,6 @@ public static class DependencyInjection
 
         // Strategies
         services.AddScoped<IRemessaGenerator, BancoDoBrasilRemessaGenerator>();
-        services.AddScoped<IRemessaGenerator, BradescoRemessaGenerator>();
 
         // MediatR
         services.AddMediatR(cfg =>

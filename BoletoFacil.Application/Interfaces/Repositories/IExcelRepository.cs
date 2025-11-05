@@ -1,8 +1,8 @@
-﻿using BoletoFacil.Application.DTOs;
+﻿using BoletoFacil.Application.DTOs.Common;
 
 namespace BoletoFacil.Application.Interfaces.Repositories;
 
 public interface IExcelRepository
 {
-    Task<RemessaDTO> ReadExcelAsync(Stream excelStream);    
+    ConfiguracaoRemessaDTO LerPlanilha(Stream excelStream);
 }

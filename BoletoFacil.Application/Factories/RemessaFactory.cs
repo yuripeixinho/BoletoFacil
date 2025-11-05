@@ -1,16 +1,28 @@
 ﻿using BoletoFacil.Application.Factories.Interfaces;
+using BoletoFacil.Application.Interfaces.Repositories;
 using BoletoFacil.Application.Strategies.CreateRemessa;
-using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.BancoDoBrasil;
-using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Bradesco;
+using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Itau.CNAB400;
 
 namespace BoletoFacil.Application.Factories;
 
 public class RemessaFactory : IRemessaFactory
 {
-    public IRemessaGenerator CriarRemessaParaOBanco(string banco) => banco switch
+    public IRemessaGenerator IdentificarRemessaPorBancoELayout(string banco, string layout) 
     {
-        "237" => new BradescoRemessaGenerator(),
-        "001" => new BancoDoBrasilRemessaGenerator(),
-        _ => throw new InvalidOperationException($"Banco {banco} não suportado.")
-    };
+        return (banco, layout) switch
+        {
+            //("237", "CNAB400") => new BradescoRemessa400Generator(),
+            //("237", "CNAB240") => new BradescoRemessa240Generator(),
+
+            //("001", "CNAB400") => new BancoDoBrasilRemessa400Generator(),
+            //("001", "CNAB240") => new BancoDoBrasilRemessa240Generator(),
+
+            ("341", "400") => new BancoItauRemessaGenerator400(),
+            //("001", "CNAB240") => new BancoDoBrasilRemessa240Generator(),
+
+            _ => throw new InvalidOperationException(
+                $"Banco {banco} com layout {layout} não suportado."
+            )
+        };
+    }
 }

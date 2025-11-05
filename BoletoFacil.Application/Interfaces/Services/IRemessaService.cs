@@ -1,4 +1,4 @@
-﻿using BoletoFacil.Application.DTOs;
+﻿using BoletoFacil.Application.DTOs.Common;
 
 namespace BoletoFacil.Application.Interfaces.Services;
 
