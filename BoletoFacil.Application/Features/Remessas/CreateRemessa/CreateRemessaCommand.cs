@@ -3,5 +3,5 @@ using MediatR;
 
 namespace BoletoFacil.Application.Features.Remessas.CreateRemessa;
 
-public record CreateRemessaCommand(LeituraExcelDTO ExcelRemessa) : IRequest<string>;
+public record CreateRemessaCommand(ExcelRemessaDTO ExcelRemessaDTO) : IRequest<string>;
 

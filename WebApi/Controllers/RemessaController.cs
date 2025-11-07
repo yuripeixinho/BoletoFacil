@@ -17,7 +17,7 @@ public class RemessaController : ControllerBase
     }
 
     [HttpPost("excel/generate")]
-    public async Task<IActionResult> GerarCnabExcel([FromForm] LeituraExcelDTO ExcelRemessaDTO)
+    public async Task<IActionResult> GerarCnabExcel([FromForm] ExcelRemessaDTO ExcelRemessaDTO)
     {
         var command = new CreateRemessaCommand(ExcelRemessaDTO);
         var result = await _mediator.Send(command);

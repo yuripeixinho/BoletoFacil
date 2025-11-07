@@ -2,6 +2,6 @@
 
 public enum TipoLayout
 {
-    CNAB240,
-    CNAB400
+    CNAB400,
+    CNAB240
 }

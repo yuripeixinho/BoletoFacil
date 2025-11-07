@@ -11,26 +11,31 @@ public class ExcelRepository : IExcelRepository
         using var workbook = new XLWorkbook(excelStream);
         var sheet = workbook.Worksheet("Base");
 
+        var HeaderDTO = LerHeader(workbook);
+
         var remessa = new ConfiguracaoRemessaDTO
         {
             Banco = sheet.Cell("A2").GetString(),
             Layout = sheet.Cell("B2").GetString(),
-            
-            HeaderDTO = new HeaderDTO
-            {
-                CodigoBanco = sheet.Cell("A2").GetString(),
-                TipoInscricao = sheet.Cell("B2").GetString(),
-                Inscricao = sheet.Cell("C2").GetString(),
-                Convenio = sheet.Cell("D2").GetString(),
-                Agencia = sheet.Cell("E2").GetString(),
-                DVAgencia = sheet.Cell("F2").GetString(),
-                Conta = sheet.Cell("G2").GetString(),
-                DVConta = sheet.Cell("H2").GetString(),
-                NomeEmpresa = sheet.Cell("I2").GetString(),
-                NumeroSequencialArquivo = sheet.Cell("J2").GetString()
-            }
+            HeaderDTO = HeaderDTO,  
         };
 
         return remessa;
+    }
+
+    private HeaderDTO LerHeader(XLWorkbook workbook)
+    {
+        var sheet = workbook.Worksheet("Header");
+
+        var HeaderDTO = new HeaderDTO
+        {
+            Agencia = sheet.Cell("A2").GetString(),
+            Conta = sheet.Cell("B2").GetString(),
+            DAC = sheet.Cell("C2").GetString(),
+            NomeEmpresa = sheet.Cell("D2").GetString(),
+            NumeroSequencialArquivo = sheet.Cell("E2").GetString()
+        };
+
+        return HeaderDTO;
     }
 }

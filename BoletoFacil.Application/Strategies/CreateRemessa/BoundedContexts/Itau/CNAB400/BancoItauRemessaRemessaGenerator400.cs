@@ -1,4 +1,5 @@
-﻿using BoletoFacil.Application.DTOs.BoundedContexts.Itau.CNAB400;
+﻿using AutoMapper;
+using BoletoFacil.Application.DTOs.BoundedContexts.Itau.CNAB400;
 using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Itau.CNAB400.Layouts;
 using System.Text;
@@ -7,25 +8,20 @@ namespace BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Itau.
 
 public class BancoItauRemessaGenerator400 : IRemessaGenerator
 {
+    private readonly IMapper _mapper;
+
+    public BancoItauRemessaGenerator400(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+
     public string CarregarLayoutEspecifico(ConfiguracaoRemessaDTO remessaDTO)
     {
         var sb = new StringBuilder();
 
-        var headerItau = new ItauHeader400DTO
-        {
-            CodigoBanco = remessaDTO.HeaderDTO.CodigoBanco,
-            TipoInscricao = remessaDTO.HeaderDTO.TipoInscricao,
-            Inscricao = remessaDTO.HeaderDTO.Inscricao,
-            Convenio = remessaDTO.HeaderDTO.Convenio,
-            Agencia = remessaDTO.HeaderDTO.Agencia,
-            DVAgencia = remessaDTO.HeaderDTO.DVAgencia,
-            Conta = remessaDTO.HeaderDTO.Conta,
-            DVConta = remessaDTO.HeaderDTO.DVConta,
-            NomeEmpresa = remessaDTO.HeaderDTO.NomeEmpresa,
-            NumeroSequencialArquivo = remessaDTO.HeaderDTO.NumeroSequencialArquivo
-        };
+        var headerItauDTO = _mapper.Map<ItauHeader400DTO>(remessaDTO.HeaderDTO);
 
-        var header = new StrategyHeaderItau400(headerItau).Gerar();
+        var header = new StrategyHeaderItau400(headerItauDTO).Gerar();
         sb.AppendLine(header);
 
         //var detalhes = new DetalheBancoDoBrasil(dto).Gerar();

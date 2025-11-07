@@ -16,7 +16,7 @@ public class CreateRemessaCommandHandler : IRequestHandler<CreateRemessaCommand,
     {
         //A função principal do handle  não é executar nenhuma tarefa bruta (como acessar o banco de dados),
         // mas sim ORQUESTRAR a sequência dos passos que definem o processo (a lógica de negócio complexa).
-        var remessa = await _remessaService.GerarRemessaAsync(request.ExcelRemessa);
+        var remessa = await _remessaService.GerarRemessaAsync(request.ExcelRemessaDTO);
 
         return remessa;
     }

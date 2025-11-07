@@ -24,8 +24,4 @@
     <ProjectReference Include="..\BoletoFacil.Application\BoletoFacil.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\EntitiesConfiguration\Common\" />
-  </ItemGroup>
-
 </Project>

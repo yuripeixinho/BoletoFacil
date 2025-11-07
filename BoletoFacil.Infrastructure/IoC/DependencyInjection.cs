@@ -2,6 +2,7 @@
 using BoletoFacil.Application.Factories.Interfaces;
 using BoletoFacil.Application.Interfaces.Repositories;
 using BoletoFacil.Application.Interfaces.Services;
+using BoletoFacil.Application.Mappings;
 using BoletoFacil.Application.Services;
 using BoletoFacil.Application.Strategies.CreateRemessa;
 using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.BancoDoBrasil;
@@ -27,6 +28,7 @@ public static class DependencyInjection
 
         // Repositories
         services.AddScoped<IExcelRepository, ExcelRepository>();
+        services.AddScoped<IRemessaRepository, RemessaRepository>();
 
         // Services
         services.AddScoped<IRemessaService, RemessaService>();
@@ -37,6 +39,9 @@ public static class DependencyInjection
 
         // Strategies
         services.AddScoped<IRemessaGenerator, BancoDoBrasilRemessaGenerator>();
+
+        // Automapper
+        services.AddAutoMapper(typeof(ItauRemessaProfile));
 
         // MediatR
         services.AddMediatR(cfg =>

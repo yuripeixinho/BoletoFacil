@@ -1,4 +1,6 @@
-﻿using BoletoFacil.Domain.Core.Entities.Bancos.Itau.CNAB400;
+﻿using BoletoFacil.Domain.Core.Entities.Common;
+using BoletoFacil.Domain.Core.Entities.Configurations;
+using BoletoFacil.Domain.Core.Entities.Dimension;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoletoFacil.Infrastructure.Data.Context;
@@ -6,10 +8,18 @@ namespace BoletoFacil.Infrastructure.Data.Context;
 public class BoletoFacilContext : DbContext
 {
     public BoletoFacilContext(DbContextOptions<BoletoFacilContext> options) : base(options)
-    {}
+    { }
 
-    public DbSet<RemessaItauCNAB400> ItauRemessas { get; set; }
-    public DbSet<HeaderArquivoItauCNAB400> ItauHeaderArquivo400 { get; set; }
+    // Tabelas de Regras de Negócios
+    public DbSet<Remessa> Remessas { get; set; }
+    public DbSet<Header> Header { get; set; }
+
+    // Tabelas de Dimensões
+    public DbSet<DimBanco> DimBancos { get; set; }
+
+    // Tabelas de Configurações
+    public DbSet<LayoutConfiguration> LayoutConfigurations { get; set; }
+
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
