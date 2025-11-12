@@ -6,14 +6,14 @@ namespace BoletoFacil.Infrastructure.Data.Repositories;
 
 public class ExcelRepository : IExcelRepository
 {
-    public ConfiguracaoRemessaDTO LerPlanilha(Stream excelStream)
+    public RemessaDTO LerPlanilha(Stream excelStream)
     {
         using var workbook = new XLWorkbook(excelStream);
         var sheet = workbook.Worksheet("Base");
 
         var HeaderDTO = LerHeader(workbook);
 
-        var remessa = new ConfiguracaoRemessaDTO
+        var remessa = new RemessaDTO
         {
             Banco = sheet.Cell("A2").GetString(),
             Layout = sheet.Cell("B2").GetString(),

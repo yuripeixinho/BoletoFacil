@@ -1,4 +1,5 @@
-﻿using BoletoFacil.Application.DTOs.Common;
+﻿using AutoMapper;
+using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.Factories.Interfaces;
 using BoletoFacil.Application.Interfaces.Repositories;
 using BoletoFacil.Application.Interfaces.Services;
@@ -11,46 +12,42 @@ public class RemessaService : IRemessaService
     private readonly IRemessaFactory _remessaFactory;
     private readonly IExcelRepository _excelRepository;
     private readonly IArquivoService _arquivoService;
+    private readonly IValidationRemessaService _validator;  
     private readonly IRemessaRepository _remessaRepository;
+    private readonly IMapper _mapper;
 
-    public RemessaService(IRemessaFactory remessaFactory, IExcelRepository excelRepository, IArquivoService arquivoService, IRemessaRepository remessaRepository)
+    public RemessaService(IRemessaFactory remessaFactory, IExcelRepository excelRepository, IArquivoService arquivoService, IValidationRemessaService validationRemessaService, 
+        IRemessaRepository remessaRepository, IMapper mapper)
     {
         _remessaFactory = remessaFactory;
         _excelRepository = excelRepository;
         _arquivoService = arquivoService;
-        _remessaRepository = remessaRepository; 
+        _validator = validationRemessaService;  
+        _remessaRepository = remessaRepository;
+        _mapper = mapper;
     }
-
 
     public async Task<string> GerarRemessaAsync(ExcelRemessaDTO excelRemessaDTO)
     {
         var dados = IdentificarBancoELayoutCNAB(excelRemessaDTO);
-       
+        await _validator.ValidarAsync(dados); 
+
         var layout = _remessaFactory.IdentificarRemessaPorBancoELayout(dados.Banco, dados.Layout); // Factory
         var cnab = layout.CarregarLayoutEspecifico(dados); // A partir da escolha do Factory gera o Strategy para o banco e layout correspondente
 
+
+
+        var remessaEntity = _mapper.Map<Remessa>(dados);
+        remessaEntity.ArmazenarCNAB(cnab);  
+
+        await _remessaRepository.SalvarRemessaAsync(remessaEntity);
+
         _arquivoService.ExportarArquivoTXT(cnab);
-
-        var teste = new Remessa
-        {
-            DimBancoId = int.Parse(dados.Banco),
-            LayoutConfigurationId = int.Parse(dados.Layout),
-            Header = new Header
-            {
-                Agencia = dados.HeaderDTO.Agencia.ToString(),  
-                Conta = dados.HeaderDTO.Conta.ToString(),   
-                DAC = dados.HeaderDTO.DAC.ToString(),    
-                NomeEmpresa = dados.HeaderDTO.NomeEmpresa.ToString(),
-                NumeroSequencialArquivo = dados.HeaderDTO.NumeroSequencialArquivo.ToString(),
-            }
-        };
-
-        await _remessaRepository.SalvarRemessaAsync(teste);
-
+            
         return "Arquivo gerado com sucesso";
     }
 
-    private ConfiguracaoRemessaDTO IdentificarBancoELayoutCNAB(ExcelRemessaDTO excelRemessaDTO)
+    private RemessaDTO IdentificarBancoELayoutCNAB(ExcelRemessaDTO excelRemessaDTO)
     {
         using var planilha = excelRemessaDTO.LayoutExcel.OpenReadStream();
         var dados = _excelRepository.LerPlanilha(planilha);

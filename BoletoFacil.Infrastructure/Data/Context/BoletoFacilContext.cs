@@ -1,5 +1,4 @@
 ﻿using BoletoFacil.Domain.Core.Entities.Common;
-using BoletoFacil.Domain.Core.Entities.Configurations;
 using BoletoFacil.Domain.Core.Entities.Dimension;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,13 +11,10 @@ public class BoletoFacilContext : DbContext
 
     // Tabelas de Regras de Negócios
     public DbSet<Remessa> Remessas { get; set; }
-    public DbSet<Header> Header { get; set; }
+    public DbSet<Header> Headers { get; set; }
 
     // Tabelas de Dimensões
     public DbSet<DimBanco> DimBancos { get; set; }
-
-    // Tabelas de Configurações
-    public DbSet<LayoutConfiguration> LayoutConfigurations { get; set; }
 
 
 

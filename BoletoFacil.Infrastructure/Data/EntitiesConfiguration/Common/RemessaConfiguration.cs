@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BoletoFacil.Infrastructure.Data.EntitiesConfiguration.Bancos.Itau.CNAB400;
+namespace BoletoFacil.Infrastructure.Data.EntitiesConfiguration.Common;
 
 public class RemessaConfiguration : IEntityTypeConfiguration<Remessa>
 {
@@ -10,14 +10,18 @@ public class RemessaConfiguration : IEntityTypeConfiguration<Remessa>
     {
         builder.ToTable("Remessas");
 
-        //builder.HasKey(x => x.RemessaId);
+        builder.HasKey(r => r.RemessaId);
 
-        //builder.Property(x => x.Layout)
-        //       .IsRequired();
+        builder.Property(r => r.ArquivoTXT).IsRequired().HasMaxLength(-1); // indica que não tem tamanho máximo
 
-        //builder.HasOne(x => x.Header)
-        //       .WithOne()
-        //       .HasForeignKey<Remessa>(x => x.HeaderId)
-        //       .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(r => r.DimBanco)
+               .WithMany() 
+               .HasForeignKey(r => r.BancoId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(r => r.Header)
+               .WithOne()
+               .HasForeignKey<Remessa>(r => r.HeaderId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

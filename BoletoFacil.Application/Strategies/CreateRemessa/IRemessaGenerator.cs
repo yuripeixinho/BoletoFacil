@@ -4,6 +4,6 @@ namespace BoletoFacil.Application.Strategies.CreateRemessa;
 
 public interface IRemessaGenerator
 {
-    string CarregarLayoutEspecifico(ConfiguracaoRemessaDTO remessaDTO);
+    string CarregarLayoutEspecifico(RemessaDTO remessaDTO);
     //string CarregarLayout(ConfiguracaoRemesssaDTO remessaDTO);
 }

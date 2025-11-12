@@ -2,7 +2,7 @@
 
 public class DimBanco
 {
-    public int DimBancoId { get; set; }
+    public int BancoId { get; set; }
     public required string Nome { get; set; }
     public required string RazaoSocial { get; set; }
 }

@@ -1,8 +1,8 @@
 ﻿namespace BoletoFacil.Application.DTOs.Common;
 
-public class ConfiguracaoRemessaDTO
+public class RemessaDTO
 {
     public string? Banco { get; set; } 
     public string? Layout { get; set; }  
-    public HeaderDTO? HeaderDTO { get; set; }    
+    public HeaderDTO? HeaderDTO { get; set; }   
 }

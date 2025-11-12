@@ -9,20 +9,13 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
     <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BoletoFacil.Api.Domain\BoletoFacil.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DTOs\BoundedContexts\BancoDoBrasil\CNAB400\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="DTOs\BoundedContexts\BancoDoBrasil\CNAB240\BBHeader240DTO.cs" />
   </ItemGroup>
 
 </Project>

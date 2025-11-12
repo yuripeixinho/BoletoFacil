@@ -4,5 +4,5 @@ namespace BoletoFacil.Application.Interfaces.Repositories;
 
 public interface IExcelRepository
 {
-    ConfiguracaoRemessaDTO LerPlanilha(Stream excelStream);
+    RemessaDTO LerPlanilha(Stream excelStream);
 }

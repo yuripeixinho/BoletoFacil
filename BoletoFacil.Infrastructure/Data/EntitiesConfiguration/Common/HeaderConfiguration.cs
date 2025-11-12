@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BoletoFacil.Infrastructure.Data.EntitiesConfiguration.Bancos.Itau.CNAB400;
+namespace BoletoFacil.Infrastructure.Data.EntitiesConfiguration.Common;
 
 public class HeaderItauCNAB400Configuration : IEntityTypeConfiguration<Header>
 {
@@ -10,16 +10,11 @@ public class HeaderItauCNAB400Configuration : IEntityTypeConfiguration<Header>
     {
         builder.ToTable("Headers");
 
-        //builder.HasKey(x => x.HeaderId);
+        builder.HasKey(h => h.HeaderId);
 
-        //builder.Property(x => x.Agencia).IsRequired().HasMaxLength(4);
-        //builder.Property(x => x.Conta).IsRequired().HasMaxLength(5);
-        //builder.Property(x => x.DAC).IsRequired().HasMaxLength(1);
-        //builder.Property(x => x.NomeEmpresa).IsRequired().HasMaxLength(30);
-
-        //builder.HasOne(x => x.Remessa)
-        //       .WithOne()
-        //       .HasForeignKey<Header>(x => x.RemessaId)
-        //       .OnDelete(DeleteBehavior.Restrict);
+        builder.Property(h => h.Agencia).IsRequired().HasMaxLength(4);
+        builder.Property(h => h.Conta).IsRequired().HasMaxLength(5);
+        builder.Property(h => h.DAC).IsRequired().HasMaxLength(1);
+        builder.Property(h => h.NomeEmpresa).IsRequired().HasMaxLength(30);
     }
 }

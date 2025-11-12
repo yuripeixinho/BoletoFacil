@@ -15,7 +15,7 @@ public class BancoItauRemessaGenerator400 : IRemessaGenerator
         _mapper = mapper;
     }
 
-    public string CarregarLayoutEspecifico(ConfiguracaoRemessaDTO remessaDTO)
+    public string CarregarLayoutEspecifico(RemessaDTO remessaDTO)
     {
         var sb = new StringBuilder();
 

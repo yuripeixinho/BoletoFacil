@@ -4,7 +4,8 @@ namespace BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Banco
 
 public class BancoDoBrasilRemessaGenerator : IRemessaGenerator
 {
-    public string CarregarLayoutEspecifico(ConfiguracaoRemessaDTO remessaDTO)
+
+    public string CarregarLayoutEspecifico(RemessaDTO remessaDTO)
     {
         throw new NotImplementedException();
     }
