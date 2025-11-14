@@ -1,19 +1,22 @@
 ﻿using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.Interfaces.Repositories;
+using BoletoFacil.Domain.Core.Exceptions;
 
 namespace BoletoFacil.Application.Validation.Business;
 
 public class RemessaBusinessValidator : IRemessaBusinessValidator
 {
-    private readonly IRemessaRepository _remessaRepository;  
+    private readonly IBancoRepository _bancoRepository;  
 
-    public RemessaBusinessValidator()
+    public RemessaBusinessValidator(IBancoRepository bancoRepository)
     {
-        
+        _bancoRepository = bancoRepository;
     }
 
-    public Task ValidarGeracaoRemessaAsync(RemessaDTO remessaDTO)
+    public async Task ValidarGeracaoRemessaAsync(RemessaDTO remessaDTO)
     {
-        throw new NotImplementedException();
+        if (!await _bancoRepository.ExistsAsync(remessaDTO.Banco))
+            throw new BusinessRuleException("O banco informado não existe ou está inativo.");
+
     }
 }

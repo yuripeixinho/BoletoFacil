@@ -2,7 +2,7 @@
 using BoletoFacil.Application.Interfaces.Services;
 using FluentValidation;
 
-namespace BoletoFacil.Application.Validation.DTOs;
+namespace BoletoFacil.Application.Validation.Services;
 
 public class ValidationRemessaService : IValidationRemessaService
 {

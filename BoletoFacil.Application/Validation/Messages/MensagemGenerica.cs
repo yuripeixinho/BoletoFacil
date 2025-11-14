@@ -1,4 +1,4 @@
-﻿namespace BoletoFacil.Application.Validators;
+﻿namespace BoletoFacil.Application.Validation.Messages;
 
 public static class MensagemGenerica
 {
