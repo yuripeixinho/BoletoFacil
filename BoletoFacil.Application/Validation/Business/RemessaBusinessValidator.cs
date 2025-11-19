@@ -17,6 +17,5 @@ public class RemessaBusinessValidator : IRemessaBusinessValidator
     {
         if (!await _bancoRepository.ExistsAsync(remessaDTO.Banco))
             throw new BusinessRuleException("O banco informado não existe ou está inativo.");
-
     }
 }

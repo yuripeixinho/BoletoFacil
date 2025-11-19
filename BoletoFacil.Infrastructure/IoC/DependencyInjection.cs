@@ -42,6 +42,7 @@ public static class DependencyInjection
         services.AddScoped<IRemessaService, RemessaService>();
         services.AddScoped<IArquivoService, ArquivoService>();
         services.AddScoped<IValidationRemessaService, ValidationRemessaService>();
+        services.AddScoped<IUsoEmpresaService, UsoEmpresaService>();
 
         // Services Validations
         services.AddScoped<IRemessaBusinessValidator, RemessaBusinessValidator>();

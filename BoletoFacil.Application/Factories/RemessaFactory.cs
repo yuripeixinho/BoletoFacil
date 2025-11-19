@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BoletoFacil.Application.Factories.Interfaces;
+using BoletoFacil.Application.Interfaces.Services;
 using BoletoFacil.Application.Strategies.CreateRemessa;
 using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Itau.CNAB400;
 
@@ -8,10 +9,12 @@ namespace BoletoFacil.Application.Factories;
 public class RemessaFactory : IRemessaFactory
 {
     private readonly IMapper _mapper;
+    private IUsoEmpresaService _usoEmpresaService;
 
-    public RemessaFactory(IMapper mapper)
+    public RemessaFactory(IMapper mapper, IUsoEmpresaService usoEmpresaService)
     {
         _mapper = mapper;
+        _usoEmpresaService = usoEmpresaService; 
     }
 
     public IRemessaGenerator IdentificarRemessaPorBancoELayout(string banco, string layout) 
@@ -24,7 +27,7 @@ public class RemessaFactory : IRemessaFactory
             //("001", "CNAB400") => new BancoDoBrasilRemessa400Generator(),
             //("001", "CNAB240") => new BancoDoBrasilRemessa240Generator(),
 
-            ("341", "400") => new BancoItauRemessaGenerator400(_mapper),
+            ("341", "400") => new BancoItauRemessaGenerator400(_mapper, _usoEmpresaService),
             //("001", "CNAB240") => new BancoDoBrasilRemessa240Generator(),
 
             _ => throw new InvalidOperationException(
