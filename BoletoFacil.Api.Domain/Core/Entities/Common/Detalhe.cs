@@ -28,7 +28,7 @@ public class Detalhe
                                                     // TODO:
 
     // TODO:
-    public string UsoEmpresa { get; private set; }  // Campo não obrigatório, de livre utilização pela empresa, cuja informação não é consistida pelo Banco Itaú,
+    public string UsoEmpresa { get; private set; } // Campo não obrigatório, de livre utilização pela empresa, cuja informação não é consistida pelo Banco Itaú,
                                                     // e não sai no aviso de cobrança, retornando ao beneficiário no arquivo retorno em qualquer movimento 
                                                     // título(baixa, liquidação, confirmação de protesto, etc.) com o mesmo conteúdo da entrada.Para instituições
                                                     //financeiras (ag: 1248/Bancorp), o conteúdo deste campo também será impresso no rodapé do boleto.

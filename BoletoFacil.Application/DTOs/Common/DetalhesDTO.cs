@@ -9,4 +9,5 @@ public class DetalhesDTO
     public string DAC { get; set; }
     public string Instrucao { get; set; }
     public string NossoNumero { get; set; }
+    public string NumeroSequencialArquivo { get; set; }
 }

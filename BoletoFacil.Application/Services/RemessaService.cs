@@ -25,7 +25,8 @@ public class RemessaService : IRemessaService
         IArquivoService arquivoService,
         IValidationRemessaService validationRemessaService,
         IRemessaRepository remessaRepository,
-        IMapper mapper)
+        IMapper mapper,
+        IUsoEmpresaService usoEmpresaService)
     {
         _remessaFactory = remessaFactory;
         _remessaBusinessValidator = remessaBusinessValidator;

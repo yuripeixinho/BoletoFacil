@@ -20,24 +20,30 @@ public class BancoItauRemessaGenerator400 : IRemessaGenerator
 
     public string CarregarLayoutEspecifico(RemessaDTO remessaDTO)
     {
-        var sb = new StringBuilder();
+        var cnab = new StringBuilder();
 
-        // mapear para o Itau
-        var headerItauDTO = _mapper.Map<ItauHeader400DTO>(remessaDTO.HeaderDTO);
-        var detalhesItauDTO = _mapper.Map<List<ItauDetalhe400DTO>>(remessaDTO.DetalhesDTO);
+        ConstruirHeaderTXT(cnab, remessaDTO.HeaderDTO);
+        ConstruirDetalheTXT(cnab, remessaDTO.DetalhesDTO);
 
+        return cnab.ToString();
+    }
+    
+    private void ConstruirHeaderTXT(StringBuilder sb, HeaderDTO HeaderDTO)
+    {
+        var headerItauDTO = _mapper.Map<ItauHeader400DTO>(HeaderDTO);
 
         var header = new StrategyHeaderItau400(headerItauDTO).Gerar();
         sb.AppendLine(header);
+    }
+
+    private void ConstruirDetalheTXT(StringBuilder sb, List<DetalhesDTO> detalhesDTOs)
+    {
+        var detalhesItauDTO = _mapper.Map<List<ItauDetalhe400DTO>>(detalhesDTOs);
 
         foreach (var detalhe in detalhesItauDTO)
         {
-            var detalheLinha = new StrategyDetalhesItau400(detalhe, _usoEmpresaService).Gerar();
+            var detalheLinha = new StrategyDetalhesItau400(detalhe).Gerar();
             sb.AppendLine(detalheLinha);
         }
-
-
-
-        return sb.ToString();
     }
 }

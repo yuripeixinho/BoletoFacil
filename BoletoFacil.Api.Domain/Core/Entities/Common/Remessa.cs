@@ -14,7 +14,7 @@ public class Remessa
     public Header? Header { get; private set; }
     public int HeaderId { get; private set; }
 
-    public IEnumerable<Detalhe> Detalhes { get; private set; }
+    public List<Detalhe> Detalhes { get; private set; }
     public int DetalheId { get; private set; }
 
 
