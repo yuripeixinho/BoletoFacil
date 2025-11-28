@@ -4,6 +4,8 @@ using BoletoFacil.Application.Interfaces.Repositories;
 using BoletoFacil.Application.Interfaces.Services;
 using BoletoFacil.Application.Mappings;
 using BoletoFacil.Application.Mappings.Common;
+using BoletoFacil.Application.RuleEngine.Strategies.CNAB.Base;
+using BoletoFacil.Application.RuleEngine.Strategies.CNAB.Itau;
 using BoletoFacil.Application.Services;
 using BoletoFacil.Application.Strategies.CreateRemessa;
 using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.BancoDoBrasil;
@@ -42,13 +44,14 @@ public static class DependencyInjection
         services.AddScoped<IRemessaService, RemessaService>();
         services.AddScoped<IArquivoService, ArquivoService>();
         services.AddScoped<IValidationRemessaService, ValidationRemessaService>();
-        services.AddScoped<IUsoEmpresaService, UsoEmpresaService>();
+        services.AddScoped<Itau400RegrasCNABService>();
 
         // Services Validations
         services.AddScoped<IRemessaBusinessValidator, RemessaBusinessValidator>();
 
         // Factories
         services.AddScoped<IRemessaFactory, RemessaFactory>();
+        services.AddScoped<IRegrasCNABFactory, RegrasCNABFactory>();
 
         // Strategies
         services.AddScoped<IRemessaGenerator, BancoDoBrasilRemessaGenerator>();

@@ -17,6 +17,7 @@ public class RemessaService : IRemessaService
     private readonly IValidationRemessaService _validator;
     private readonly IRemessaRepository _remessaRepository;
     private readonly IMapper _mapper;
+    private readonly IRegrasCNABFactory _regrasCNABFactory; 
 
     public RemessaService(
         IRemessaFactory remessaFactory,
@@ -26,7 +27,7 @@ public class RemessaService : IRemessaService
         IValidationRemessaService validationRemessaService,
         IRemessaRepository remessaRepository,
         IMapper mapper,
-        IUsoEmpresaService usoEmpresaService)
+        IRegrasCNABFactory regrasCNABFactory)
     {
         _remessaFactory = remessaFactory;
         _remessaBusinessValidator = remessaBusinessValidator;
@@ -35,22 +36,31 @@ public class RemessaService : IRemessaService
         _validator = validationRemessaService;
         _remessaRepository = remessaRepository;
         _mapper = mapper;
+        _regrasCNABFactory = regrasCNABFactory;
     }
 
     public async Task<string> GerarRemessaAsync(ExcelRemessaDTO excelRemessaDTO)
     {
+        // identificar 
         var dados = IdentificarBancoELayoutCNAB(excelRemessaDTO);
         await _validator.ValidarAsync(dados);
         await _remessaBusinessValidator.ValidarGeracaoRemessaAsync(dados);
 
+        // regras de negócio
+        RegrasNegocioPorBanco(dados);
+
+        // factory para carregar o layout
         var layout = _remessaFactory.IdentificarRemessaPorBancoELayout(dados.Banco, dados.Layout); // Factory
         var cnab = layout.CarregarLayoutEspecifico(dados); // A partir da escolha do Factory gera o Strategy para o banco e layout correspondente
 
+        // mapear 
         var remessaEntity = _mapper.Map<Remessa>(dados);
         remessaEntity.ArmazenarCNAB(cnab);  
 
+        // consistir na base de dados
         await _remessaRepository.SalvarRemessaAsync(remessaEntity);
 
+        // exportar txt 
         _arquivoService.ExportarArquivoTXT(cnab);
             
         return "Arquivo gerado com sucesso";
@@ -62,5 +72,14 @@ public class RemessaService : IRemessaService
         var dados = _excelRepository.LerPlanilha(planilha);
 
         return dados;
+    }
+    
+    private void RegrasNegocioPorBanco(RemessaDTO dados)
+    {
+       var regras = _regrasCNABFactory.ObterRegras(dados.Banco, dados.Layout);
+
+        regras.Aplicar(dados);
+
+        var teste = dados;
     }
 }

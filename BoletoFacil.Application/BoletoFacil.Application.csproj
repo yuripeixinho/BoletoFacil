@@ -18,4 +18,9 @@
     <ProjectReference Include="..\BoletoFacil.Api.Domain\BoletoFacil.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RuleEngine\Strategies\CNAB\Bradesco\" />
+    <Folder Include="RuleEngine\Strategies\Geradores\" />
+  </ItemGroup>
+
 </Project>

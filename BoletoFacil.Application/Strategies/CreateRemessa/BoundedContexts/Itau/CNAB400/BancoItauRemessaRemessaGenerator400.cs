@@ -10,12 +10,10 @@ namespace BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Itau.
 public class BancoItauRemessaGenerator400 : IRemessaGenerator
 {
     private readonly IMapper _mapper;
-    private readonly IUsoEmpresaService _usoEmpresaService;
 
-    public BancoItauRemessaGenerator400(IMapper mapper, IUsoEmpresaService usoEmpresaService)
+    public BancoItauRemessaGenerator400(IMapper mapper)
     {
         _mapper = mapper;
-        _usoEmpresaService = usoEmpresaService;
     }
 
     public string CarregarLayoutEspecifico(RemessaDTO remessaDTO)
