@@ -73,7 +73,7 @@ public class Itau400RegrasCNABService : IRegraCNABService
         foreach (var detalhe in remessa.DetalhesDTO)
         {
             detalhe.UsoEmpresa = GerarUsoEmpresa(detalhe.NumeroSequencialArquivo);
-            detalhe.NossoNumero = GerarNossoNumero(remessa.Carteira, detalhe.NumeroSequencialArquivo);
+            detalhe.NossoNumero = GerarNossoNumero(detalhe.Carteira, detalhe.NumeroSequencialArquivo);
         }
 
     }

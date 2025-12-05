@@ -10,5 +10,10 @@ public class ItauDetalhe400DTO
     public string UsoEmpresa { get; set; }
     public string Instrucao { get; set; }
     public string NossoNumero { get; set; }
+    public string QuantidadeMoeda => "0000000000000";
+    public string Carteira { get; set; }
+
+
+
     public string NumeroSequencialArquivo { get; set; }
 }

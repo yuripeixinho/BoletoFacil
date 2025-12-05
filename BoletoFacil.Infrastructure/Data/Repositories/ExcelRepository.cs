@@ -18,7 +18,6 @@ public class ExcelRepository : IExcelRepository
         {
             Banco = sheet.Cell("A2").GetString(),
             Layout = sheet.Cell("B2").GetString(),
-            Carteira = sheet.Cell("C2").GetString(),
             HeaderDTO = HeaderDTO,
             DetalhesDTO = DetalhesDTO
         };
@@ -61,8 +60,8 @@ public class ExcelRepository : IExcelRepository
                 Agencia = sheet.Cell(row, 3).GetString(),     // Coluna C
                 Conta = sheet.Cell(row, 4).GetString(),     // Coluna D
                 DAC = sheet.Cell(row, 5).GetString(), // Coluna E
-                Instrucao = sheet.Cell(row, 5).GetString(), // Coluna E
-                NossoNumero = sheet.Cell(row, 5).GetString(), // Coluna E
+                Instrucao = sheet.Cell(row, 6).GetString(), // Coluna F
+                Carteira = sheet.Cell(row, 7).GetString(), // Coluna G
             };
 
             detalhes.Add(item);

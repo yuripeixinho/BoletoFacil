@@ -1,5 +1,4 @@
 ﻿using BoletoFacil.Application.DTOs.BoundedContexts.Itau.CNAB400;
-using BoletoFacil.Application.Interfaces.Services;
 using System.Text;
 
 namespace BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Itau.CNAB400.Layouts;
@@ -28,6 +27,8 @@ public class StrategyDetalhesItau400
         sb.Append(_d.Instrucao.PadLeft(4, '0'));                                 // 034     037     Código de Instrução/Alegação
         sb.Append(_d.UsoEmpresa.PadRight(25, ' '));                             // 038     062     Uso da Empresa (identificação do título)
         sb.Append(_d.NossoNumero.PadLeft(8, '0'));                              // 063     070     Nosso Número
+        sb.Append(_d.QuantidadeMoeda.PadLeft(13, '0'));                          // 071     083     QTD Moeda
+        sb.Append(_d.Carteira.PadLeft(3, '0'));                            // 084     086     Número da Carteira
 
 
         string linha = sb.ToString();

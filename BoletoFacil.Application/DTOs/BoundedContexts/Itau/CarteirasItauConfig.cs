@@ -7,36 +7,20 @@ public static class CarteirasItauConfig
     // Carteiras que NÃO geram Nosso Número (escriturais)
     public static readonly CarteiraItau[] CarteirasNaoGeramNossoNumero =
     [
-        CarteiraItau.C107,
-        CarteiraItau.C122,
-        CarteiraItau.C131,
-        CarteiraItau.C146,
-        CarteiraItau.C150,
-        CarteiraItau.C168,
-        CarteiraItau.C169,
-        CarteiraItau.C180,
-        CarteiraItau.C191,
+        CarteiraItau.C104,
+        CarteiraItau.C112,
+        CarteiraItau.C138,
+        CarteiraItau.C147,
     ];
 
     // Carteiras que GERAM Nosso Número (sem registro / diretas)
     public static readonly CarteiraItau[] CarteirasGeramNossoNumero =
     [
-        CarteiraItau.C104,
-        CarteiraItau.C109,
-        CarteiraItau.C112,
-        CarteiraItau.C115,
-        CarteiraItau.C121,
-        CarteiraItau.C123,
-        CarteiraItau.C126,
+        CarteiraItau.C108,
+        CarteiraItau.C173,
         CarteiraItau.C138,
-        CarteiraItau.C147,
-        CarteiraItau.C157,
-        CarteiraItau.C174,
-        CarteiraItau.C175,
-        CarteiraItau.C178,
-        CarteiraItau.C188,
-        CarteiraItau.C195,
         CarteiraItau.C196,
+        CarteiraItau.C103,
     ];
 
     public static bool DevoGerarNossoNumero(string carteiraString)

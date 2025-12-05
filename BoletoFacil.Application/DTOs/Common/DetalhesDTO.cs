@@ -10,5 +10,7 @@ public class DetalhesDTO
     public string Instrucao { get; set; }
     public string UsoEmpresa { get; set; }
     public string NossoNumero { get; set; }
+    public string Carteira { get; set; }
+
     public string NumeroSequencialArquivo { get; set; }
 }
