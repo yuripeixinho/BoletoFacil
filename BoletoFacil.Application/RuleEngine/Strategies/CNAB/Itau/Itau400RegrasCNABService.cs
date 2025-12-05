@@ -1,4 +1,5 @@
-﻿using BoletoFacil.Application.DTOs.Common;
+﻿using BoletoFacil.Application.DTOs.BoundedContexts.Itau;
+using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.RuleEngine.Strategies.CNAB.Base;
 
 namespace BoletoFacil.Application.RuleEngine.Strategies.CNAB.Itau;
@@ -27,13 +28,22 @@ public class Itau400RegrasCNABService : IRegraCNABService
         string data = DateTime.Now.ToString("yyMMdd");
 
         string baseNum = data + sequencial;
-        int dv = CalcularModulo10(baseNum);
+        int dv = CalcularDAC(baseNum);
 
         return $"{baseNum}{dv}";
     }
 
+    public string GerarNossoNumero(string carteira, string numeroSequencial)
+    {
+        if (!CarteirasItauConfig.DevoGerarNossoNumero(carteira))
+            return "00000000"; // ajuste tamanho conforme seu layout
+
+        var dac = CalcularDAC(numeroSequencial);      
+        return numeroSequencial + dac;
+    }
+
     // analisar se esse calculo é igual para os demais bancos, se for o caso, colocar em funcao utils/helpers
-    private int CalcularModulo10(string numero)
+    private int CalcularDAC(string numero)
     {
         int soma = 0;
         int peso = 2;
@@ -60,14 +70,11 @@ public class Itau400RegrasCNABService : IRegraCNABService
     {
         GerarNumeroSequencialArquivo(remessa);
         
-
         foreach (var detalhe in remessa.DetalhesDTO)
         {
             detalhe.UsoEmpresa = GerarUsoEmpresa(detalhe.NumeroSequencialArquivo);
+            detalhe.NossoNumero = GerarNossoNumero(remessa.Carteira, detalhe.NumeroSequencialArquivo);
         }
-
-
-        var teste = remessa;
 
     }
 }

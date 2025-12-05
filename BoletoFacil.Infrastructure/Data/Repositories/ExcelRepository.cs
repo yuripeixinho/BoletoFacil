@@ -1,6 +1,5 @@
 ﻿using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.Interfaces.Repositories;
-using BoletoFacil.Infrastructure.Migrations;
 using ClosedXML.Excel;
 
 namespace BoletoFacil.Infrastructure.Data.Repositories;
@@ -19,6 +18,7 @@ public class ExcelRepository : IExcelRepository
         {
             Banco = sheet.Cell("A2").GetString(),
             Layout = sheet.Cell("B2").GetString(),
+            Carteira = sheet.Cell("C2").GetString(),
             HeaderDTO = HeaderDTO,
             DetalhesDTO = DetalhesDTO
         };
@@ -36,7 +36,6 @@ public class ExcelRepository : IExcelRepository
             Conta = sheet.Cell("B2").GetString(),
             DAC = sheet.Cell("C2").GetString(),
             NomeEmpresa = sheet.Cell("D2").GetString(),
-            NumeroSequencialArquivo = sheet.Cell("E2").GetString()
         };
 
         return HeaderDTO;

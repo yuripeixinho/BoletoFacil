@@ -27,10 +27,5 @@ public class HeaderDTOValidator : AbstractValidator<HeaderDTO?>
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("NomeEmpresa"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("NomeEmpresa"))
             .MaximumLength(30).WithMessage("O Nome da Empresa deve ter no máximo 30 caracteres.");
-
-        RuleFor(x => x!.NumeroSequencialArquivo)
-            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("NumeroSequencialArquivo"))
-            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("NumeroSequencialArquivo"))
-            .Matches(@"^\d+$").WithMessage("O Número Sequencial deve conter apenas números.");
     }
 }

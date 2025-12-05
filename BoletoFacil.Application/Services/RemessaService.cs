@@ -76,10 +76,8 @@ public class RemessaService : IRemessaService
     
     private void RegrasNegocioPorBanco(RemessaDTO dados)
     {
-       var regras = _regrasCNABFactory.ObterRegras(dados.Banco, dados.Layout);
+        var regras = _regrasCNABFactory.ObterRegras(dados.Banco, dados.Layout);
 
         regras.Aplicar(dados);
-
-        var teste = dados;
     }
 }
