@@ -7,4 +7,5 @@ public interface IRegraCNABService
     void Aplicar(RemessaDTO remessa);
     void GerarNumeroSequencialArquivo (RemessaDTO remessa);
     string GerarUsoEmpresa(string sequencial);
+    string GerarNumeroDocumento(string numeroSequencial);
 }

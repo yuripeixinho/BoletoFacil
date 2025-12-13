@@ -44,10 +44,10 @@ public class RemessaService : IRemessaService
         // identificar 
         var dados = IdentificarBancoELayoutCNAB(excelRemessaDTO);
         await _validator.ValidarAsync(dados);
-        await _remessaBusinessValidator.ValidarGeracaoRemessaAsync(dados);
 
         // regras de negócio
         RegrasNegocioPorBanco(dados);
+        await _remessaBusinessValidator.ValidarGeracaoRemessaAsync(dados);
 
         // factory para carregar o layout
         var layout = _remessaFactory.IdentificarRemessaPorBancoELayout(dados.Banco, dados.Layout); // Factory

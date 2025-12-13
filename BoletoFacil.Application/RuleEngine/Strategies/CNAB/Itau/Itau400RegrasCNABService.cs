@@ -41,6 +41,45 @@ public class Itau400RegrasCNABService : IRegraCNABService
         var dac = CalcularDAC(numeroSequencial);      
         return numeroSequencial + dac;
     }
+    
+    public string GerarCodigoCarteira(string carteira)
+    {
+        if (!int.TryParse(carteira, out var carteiraInt))
+            throw new Exception("Não foi possível converter a carteira pra int");
+
+        var codigoCarteira = CarteirasItauConfig.GerarCodigoCarteira(carteiraInt);
+
+        return codigoCarteira;
+    }
+
+    public string GerarNumeroDocumento(string numeroSequencial)
+    {
+        // 1. Normaliza para 9 dígitos (zeros à esquerda)
+        string numero = numeroSequencial.PadLeft(9, '0');
+
+        int soma = 0;
+        int multiplicador = 2;
+
+        // 2. Percorre da direita para esquerda aplicando pesos 2 e 1 alternados
+        for (int i = numero.Length - 1; i >= 0; i--)
+        {
+            int digito = numero[i] - '0';
+            int produto = digito * multiplicador;
+
+            // Soma individual dos dígitos do produto
+            soma += (produto > 9) ? (produto - 9) : produto;
+
+            // Alterna multiplicador 2 → 1 → 2
+            multiplicador = multiplicador == 2 ? 1 : 2;
+        }
+
+        // 3. Calcula o DAC
+        int resto = soma % 10;
+        int dac = (resto == 0) ? 0 : (10 - resto);
+
+        // 4. Retorna o número completo (8 dígitos + DAC)
+        return numero + dac;
+    }
 
     // analisar se esse calculo é igual para os demais bancos, se for o caso, colocar em funcao utils/helpers
     private int CalcularDAC(string numero)
@@ -73,7 +112,9 @@ public class Itau400RegrasCNABService : IRegraCNABService
         foreach (var detalhe in remessa.DetalhesDTO)
         {
             detalhe.UsoEmpresa = GerarUsoEmpresa(detalhe.NumeroSequencialArquivo);
-            detalhe.NossoNumero = GerarNossoNumero(detalhe.Carteira, detalhe.NumeroSequencialArquivo);
+            detalhe.NossoNumero = GerarNossoNumero(detalhe.NumeroCarteira, detalhe.NumeroSequencialArquivo);
+            detalhe.CodigoCarteira = GerarCodigoCarteira(detalhe.NumeroCarteira);
+            detalhe.NumeroDocumento = GerarNumeroDocumento(detalhe.NumeroSequencialArquivo);
         }
 
     }

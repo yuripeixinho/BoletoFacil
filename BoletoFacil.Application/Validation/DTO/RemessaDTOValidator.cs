@@ -17,5 +17,9 @@ public class RemessaDTOValidator : AbstractValidator<RemessaDTO>
         RuleFor(x => x.HeaderDTO)
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Header"))
             .SetValidator(new HeaderDTOValidator());
+
+        RuleForEach(x => x.DetalhesDTO)
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Detalhe"))
+            .SetValidator(new DetalheDTOValidator());
     }
 }

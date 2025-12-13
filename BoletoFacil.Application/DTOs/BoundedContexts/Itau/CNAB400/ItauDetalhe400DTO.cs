@@ -8,10 +8,18 @@ public class ItauDetalhe400DTO
     public string Conta { get; set; }
     public string DAC { get; set; }
     public string UsoEmpresa { get; set; }
-    public string Instrucao { get; set; }
+    public string InstrucaoCancelamento { get; set; }
     public string NossoNumero { get; set; }
     public string QuantidadeMoeda => "0000000000000";
-    public string Carteira { get; set; }
+    public string NumeroCarteira { get; set; }
+    public string UsoBanco { get; set; } 
+    public string CodigoCarteira { get; set; }
+    public string NumeroDocumento { get; set; }
+    public DateTime DataVencimento { get; set; }
+    public string ValorCobranca { get; set; }
+    public string EspecieTitulo { get; set; }
+    public string Instrucao1 { get; set; }
+    public string Instrucao2 { get; set; }
 
 
 

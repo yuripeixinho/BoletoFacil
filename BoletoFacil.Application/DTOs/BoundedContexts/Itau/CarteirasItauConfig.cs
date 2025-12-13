@@ -23,6 +23,14 @@ public static class CarteirasItauConfig
         CarteiraItau.C103,
     ];
 
+    public static string GerarCodigoCarteira(int carteira)
+    {
+        if (carteira == (int)CarteiraItau.C147)
+            return "E";
+
+        return "I";
+    }
+
     public static bool DevoGerarNossoNumero(string carteiraString)
     {
         if (string.IsNullOrWhiteSpace(carteiraString))

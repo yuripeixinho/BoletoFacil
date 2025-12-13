@@ -20,7 +20,7 @@ public class Detalhe
     // ANALISAR COM MAIS CAUITELA ESSA REGRA DE NEGOCIO
 
     // TODO:
-    public string Instrucao { get; private set; }   // Deve ser preenchido na remessa somente quando utilizados, na posição 109-110, os códigos de ocorrência 
+    public string InstrucaoCancelamento { get; private set; }   // Deve ser preenchido na remessa somente quando utilizados, na posição 109-110, os códigos de ocorrência 
                                                     // 35 – Cancelamento de Instrução e 38 – Beneficiário não concorda com alegação do pagador.Para os
                                                     // demais códigos de ocorrência este campo deverá ser preenchido com zeros.
                                                     // Obs.: No arquivo retorno será informado o mesmo código da instrução cancelada, e para o cancelamento
@@ -51,7 +51,7 @@ public class Detalhe
     { }
 
 
-    public Detalhe(int detalheId, int codigoInscricaoId, string numeroInscricao, string agencia, string conta, string dac, string instrucao, string usoEmpresa, string nossoNumero)
+    public Detalhe(int detalheId, int codigoInscricaoId, string numeroInscricao, string agencia, string conta, string dac, string instrucaoCancelamento, string usoEmpresa, string nossoNumero)
     {
         DetalheId = detalheId;
         CodigoInscricaoId = codigoInscricaoId;
@@ -59,7 +59,7 @@ public class Detalhe
         Agencia = agencia;
         Conta = conta;
         DAC = dac;
-        Instrucao = instrucao;
+        InstrucaoCancelamento = instrucaoCancelamento;
         UsoEmpresa = usoEmpresa;
         NossoNumero = nossoNumero;
 

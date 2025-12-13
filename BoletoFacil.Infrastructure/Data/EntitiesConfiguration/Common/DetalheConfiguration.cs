@@ -21,7 +21,7 @@ public class DetalheConfiguration : IEntityTypeConfiguration<Detalhe>
         builder.Property(h => h.Conta).IsRequired().HasMaxLength(5);
         builder.Property(h => h.DAC).IsRequired().HasMaxLength(1);
 
-        builder.Property(h => h.Instrucao).IsRequired().HasMaxLength(4);
+        builder.Property(h => h.InstrucaoCancelamento).IsRequired().HasMaxLength(4);
         builder.Property(h => h.UsoEmpresa).HasMaxLength(25);
         builder.Property(h => h.NossoNumero).IsRequired().HasMaxLength(8);
     }
