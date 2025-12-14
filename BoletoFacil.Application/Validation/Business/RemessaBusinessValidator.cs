@@ -25,8 +25,18 @@ public class RemessaBusinessValidator : IRemessaBusinessValidator
     {
         foreach (var detalhe in detalhes)
         {
+            var valorCobranca = decimal.Parse(detalhe.ValorCobranca);
+            var valorDesconto = decimal.Parse(detalhe.ValorDesconto);
+
             if (detalhe.DataDesconto >= detalhe.DataVencimento)
                 throw new BusinessRuleException("A data de vencimento está com o perído inferior ao vencimento.");
+
+            if (valorDesconto > valorCobranca * 0.9m)
+                throw new Exception("Desconto excede 90% do valor do título");
+
+            if (valorDesconto > valorCobranca)
+                throw new Exception("O Vaor do desconto não pode ser maior que o valor do título de cobrança");
+
         }
     }
 }

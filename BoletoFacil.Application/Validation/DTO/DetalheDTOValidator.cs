@@ -22,7 +22,8 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
         RuleFor(x => x!.EspecieTitulo)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Espécie do Título"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Espécie do Título"))
-            .MaximumLength(2);
+            .MaximumLength(2)
+            .Must(x => int.Parse(x) > 0).WithMessage("Espécie do Título deve ser maior que zero");
 
         RuleFor(x => x!.Instrucao1)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Instrução 1"))
@@ -33,6 +34,31 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Instrução 2"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Instrução 2"))
             .MaximumLength(2);
+
+        RuleFor(x => x!.ValorCobranca)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Valor de Desconto"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Valor de Desconto"));
+
+        RuleFor(x => x!.CodigoInscricaoPagador)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Código de Inscrição"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Código de Inscrição"))
+            .MaximumLength(2);
+
+        RuleFor(x => x!.NumeroInscricao)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Número de Inscrição"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Número de Inscrição"))
+            .MinimumLength(11)
+            .MaximumLength(14);
+
+        RuleFor(x => x!.Nome)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Nome"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Nome"))
+            .MaximumLength(30);
+
+        RuleFor(x => x!.Logradouro)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Logradouro"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Logradouro"))
+            .MaximumLength(40);
     }
 
     private bool SerValorMaiorQueZero(string valor)

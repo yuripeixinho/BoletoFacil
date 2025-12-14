@@ -47,6 +47,14 @@ public class StrategyDetalhesItau400
         sb.Append(_d.Instrucao2.PadLeft(2, '0'));
         sb.Append(FormatarValores.ValorCobranca(_d.JurosMora, "0000000000000"));
         sb.Append(FormatarDataCNAB.FormatarDDMMAA(_d.DataDesconto));                                       // 111     120     Nº DO DOCUMENTO 
+        sb.Append(FormatarValores.ValorCobranca(_d.ValorDesconto, "0000000000000"));
+        sb.Append("0000000000000");
+        sb.Append("0000000000000");
+        sb.Append(_d.CodigoInscricaoPagador.PadLeft(2, '0'));
+        sb.Append(_d.NumeroInscricaoPagador.PadLeft(14, '0'));
+        sb.Append(_d.Nome.PadRight(30, ' '));
+        sb.Append("          ");
+        sb.Append(_d.Logradouro.PadRight(40, ' '));
 
 
 
