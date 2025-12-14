@@ -63,12 +63,13 @@ public class ExcelRepository : IExcelRepository
                 DAC = sheet.Cell(row, 5).GetString(), // Coluna E
                 InstrucaoCancelamento = sheet.Cell(row, 6).GetString(), // Coluna F
                 NumeroCarteira = sheet.Cell(row, 7).GetString(), // Coluna G
-                DataVencimento = LerDataVencimento(sheet.Cell(row, 8)), // Coluna H
+                DataVencimento = LerDataExcel(sheet.Cell(row, 8)), // Coluna H
                 ValorCobranca = sheet.Cell(row, 9).GetString(), // Coluna I
                 EspecieTitulo = sheet.Cell(row, 10).GetString(), // Coluna J
                 Instrucao1 = sheet.Cell(row, 11).GetString(), // Coluna K
                 Instrucao2 = sheet.Cell(row, 12).GetString(), // Coluna L
-
+                JurosMora = sheet.Cell(row, 13).GetString(), // Coluna M
+                DataDesconto = LerDataExcel(sheet.Cell(row, 14)), // Coluna N
             };
 
             detalhes.Add(item);
@@ -77,7 +78,7 @@ public class ExcelRepository : IExcelRepository
         return detalhes;
     }
 
-    private DateTime LerDataVencimento(IXLCell cell)
+    private DateTime LerDataExcel(IXLCell cell)
     {
         if (cell.IsEmpty())
             throw new Exception("Data de Vencimento não informada");

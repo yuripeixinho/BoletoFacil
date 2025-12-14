@@ -19,6 +19,8 @@ public class DetalhesDTO
     public string EspecieTitulo { get; set; }
     public string Instrucao1 { get; set; }
     public string Instrucao2 { get; set; }
+    public string JurosMora { get; set; }
+    public DateTime DataDesconto { get; set; }
 
 
 

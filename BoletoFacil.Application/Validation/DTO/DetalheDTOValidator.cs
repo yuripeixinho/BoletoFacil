@@ -9,14 +9,14 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
 {
     public DetalheDTOValidator()
     {
-        RuleFor(x => x!.DataVencimento)
+        RuleFor(x => x.DataVencimento)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Data Vencimento"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Data Vencimento"))
             .GreaterThanOrEqualTo(DateTime.Today).WithMessage("Data de vencimento inválida");
 
         RuleFor(x => x!.ValorCobranca)
-            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Data Vencimento"))
-            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Data Vencimento"))
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Valor Cobrança"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Valor Cobrança"))
             .Must(SerValorMaiorQueZero).WithMessage("O valor de cobrança deve ser mais que zero.");
 
         RuleFor(x => x!.EspecieTitulo)
@@ -48,6 +48,4 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
             out var valorDecimal)
             && valorDecimal > 0;
     }
-
-
 }

@@ -17,5 +17,16 @@ public class RemessaBusinessValidator : IRemessaBusinessValidator
     {
         if (!await _bancoRepository.ExistsAsync(remessaDTO.Banco))
             throw new BusinessRuleException("O banco informado não existe ou está inativo.");
+
+        ValidarDetalhes(remessaDTO.DetalhesDTO);
+    }
+
+    public void ValidarDetalhes(List<DetalhesDTO> detalhes)
+    {
+        foreach (var detalhe in detalhes)
+        {
+            if (detalhe.DataDesconto >= detalhe.DataVencimento)
+                throw new BusinessRuleException("A data de vencimento está com o perído inferior ao vencimento.");
+        }
     }
 }

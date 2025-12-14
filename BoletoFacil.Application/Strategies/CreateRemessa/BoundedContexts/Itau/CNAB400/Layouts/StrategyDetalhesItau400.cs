@@ -45,6 +45,8 @@ public class StrategyDetalhesItau400
         sb.Append(FormatarDataCNAB.FormatarDDMMAA(DateTime.Now));                                       // 111     120     Nº DO DOCUMENTO 
         sb.Append(_d.Instrucao1.PadLeft(2, '0'));
         sb.Append(_d.Instrucao2.PadLeft(2, '0'));
+        sb.Append(FormatarValores.ValorCobranca(_d.JurosMora, "0000000000000"));
+        sb.Append(FormatarDataCNAB.FormatarDDMMAA(_d.DataDesconto));                                       // 111     120     Nº DO DOCUMENTO 
 
 
 
