@@ -65,7 +65,6 @@ public class Detalhe
 
         ValidarDominio();
     }
-
     
     public void ValidarDominio()
     {

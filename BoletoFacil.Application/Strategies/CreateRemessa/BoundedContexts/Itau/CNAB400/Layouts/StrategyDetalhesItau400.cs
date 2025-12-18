@@ -55,7 +55,16 @@ public class StrategyDetalhesItau400
         sb.Append(_d.Nome.PadRight(30, ' '));
         sb.Append("          ");
         sb.Append(_d.Logradouro.PadRight(40, ' '));
-
+        sb.Append(_d.Bairro.PadRight(12, ' '));
+        sb.Append(_d.CEP);
+        sb.Append(_d.Cidade.PadRight(15, ' '));
+        sb.Append(_d.Estado);
+        sb.Append(_d.Nome.PadRight(30, ' '));
+        sb.Append("    ");
+        sb.Append(FormatarDataCNAB.FormatarDDMMAA(_d.DataMora));                                      
+        sb.Append(_d.PrazoDias);
+        sb.Append(" ");
+        sb.Append(_d.NumeroSequencialArquivo);
 
 
 

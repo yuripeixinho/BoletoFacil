@@ -59,6 +59,30 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Logradouro"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Logradouro"))
             .MaximumLength(40);
+
+        RuleFor(x => x!.Bairro)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Bairro"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Bairro"))
+            .MaximumLength(12);
+
+        RuleFor(x => x!.CEP)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("CEP"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("CEP"))
+            .Length(8).WithMessage("O CEP deve conter exatamente 8 caracteres.")
+            .Matches(@"^\d{8}$").WithMessage("O CEP deve conter apenas números.");
+
+        RuleFor(x => x!.Cidade)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Cidade"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Cidade"))
+            .MaximumLength(12);
+
+        RuleFor(x => x!.Estado)
+            .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Estado"))
+            .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Estado"))
+            .MaximumLength(2);
+
+        RuleFor(x => x!.PrazoDias)
+            .MaximumLength(2);
     }
 
     private bool SerValorMaiorQueZero(string valor)

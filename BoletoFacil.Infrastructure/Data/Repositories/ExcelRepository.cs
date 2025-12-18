@@ -79,6 +79,9 @@ public class ExcelRepository : IExcelRepository
                 CEP = sheet.Cell(row, 21).GetString(), // Coluna P
                 Cidade = sheet.Cell(row, 22).GetString(), // Coluna P
                 Estado = sheet.Cell(row, 23).GetString(), // Coluna P
+                DataMora = LerDataExcel(sheet.Cell(row, 24)), // Coluna N
+                PrazoDias = sheet.Cell(row, 25).GetString(), // Coluna P
+
             };
 
             detalhes.Add(item);
@@ -87,11 +90,8 @@ public class ExcelRepository : IExcelRepository
         return detalhes;
     }
 
-    private DateTime LerDataExcel(IXLCell cell)
+    private DateTime? LerDataExcel(IXLCell cell)
     {
-        if (cell.IsEmpty())
-            throw new Exception("Data não informada");
-
         // Excel como texto → valida formato DD/MM/AAAA
         if (cell.DataType == XLDataType.Text)
         {
@@ -121,6 +121,6 @@ public class ExcelRepository : IExcelRepository
             return cell.GetDateTime();
         }
 
-        throw new Exception("Formato de Data de Vencimento não reconhecido");
+        return null;
     }
 }

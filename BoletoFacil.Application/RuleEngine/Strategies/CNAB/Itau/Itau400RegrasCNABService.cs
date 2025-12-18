@@ -1,6 +1,7 @@
 ﻿using BoletoFacil.Application.DTOs.BoundedContexts.Itau;
 using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.RuleEngine.Strategies.CNAB.Base;
+using BoletoFacil.Domain.Core.Exceptions;
 
 namespace BoletoFacil.Application.RuleEngine.Strategies.CNAB.Itau;
 
@@ -105,6 +106,38 @@ public class Itau400RegrasCNABService : IRegraCNABService
         return resto == 0 ? 0 : 10 - resto;
     }
 
+    public string GerarPrazoDias(string instrucao1, string instrucao2, string prazoDias)
+    {
+        int prazoDiasInformado = int.Parse(prazoDias);
+        
+        var instrucoes = new[] { instrucao1, instrucao2 };
+
+        var instrucoesComPrazo = new HashSet<string>
+        {
+            "34", // Protesto após XX dias corridos
+            "35", // Protesto após XX dias úteis
+            "39", // Não receber após XX dias
+            "66", // Negativação expressa
+            "95", // Não receber após XX dias
+            "96"  // Devolver após XX dias
+        };
+
+        var instrucaoExigePrazo = instrucoes.Any(i => instrucoesComPrazo.Contains(i));
+
+        if (!instrucaoExigePrazo)
+            return "00";
+
+        // Caso especial: instrução 39
+        if (instrucoes.Contains("39") && (prazoDiasInformado == 0))
+            return "00";
+
+        if (prazoDiasInformado < 0 || prazoDiasInformado > 99)
+            throw new DomainException("Prazo inválido. Informe um valor entre 1 e 99 dias.");
+
+        return prazoDiasInformado.ToString("D2");
+    }
+    
+
     public void Aplicar(RemessaDTO remessa)
     {
         GerarNumeroSequencialArquivo(remessa);
@@ -115,7 +148,7 @@ public class Itau400RegrasCNABService : IRegraCNABService
             detalhe.NossoNumero = GerarNossoNumero(detalhe.NumeroCarteira, detalhe.NumeroSequencialArquivo);
             detalhe.CodigoCarteira = GerarCodigoCarteira(detalhe.NumeroCarteira);
             detalhe.NumeroDocumento = GerarNumeroDocumento(detalhe.NumeroSequencialArquivo);
+            detalhe.PrazoDias = GerarPrazoDias(detalhe.Instrucao1, detalhe.Instrucao2, detalhe.PrazoDias);
         }
-
     }
 }

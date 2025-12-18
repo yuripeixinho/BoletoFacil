@@ -14,13 +14,13 @@ public class DetalhesDTO
     public string UsoBanco { get; set; }
     public string CodigoCarteira { get; set; }
     public string NumeroDocumento { get; set; }
-    public DateTime DataVencimento { get; set; }
+    public DateTime? DataVencimento { get; set; }
     public string ValorCobranca { get; set; }
     public string EspecieTitulo { get; set; }
     public string Instrucao1 { get; set; }
     public string Instrucao2 { get; set; }
     public string JurosMora { get; set; }
-    public DateTime DataDesconto { get; set; }
+    public DateTime? DataDesconto { get; set; }
     public string ValorDesconto { get; set; }
     public string CodigoInscricaoPagador { get; set; }
     public string NumeroInscricaoPagador { get; set; }
@@ -30,8 +30,9 @@ public class DetalhesDTO
     public string CEP { get; set; }
     public string Cidade { get; set; }
     public string Estado { get; set; }
-
-
+    public string NomeSacadorAvalista { get; set; }
+    public DateTime? DataMora { get; set; }
+    public string PrazoDias { get; set; }
 
     public string NumeroSequencialArquivo { get; set; }
 }

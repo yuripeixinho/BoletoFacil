@@ -31,7 +31,9 @@ public class ItauDetalhe400DTO
     public string CEP { get; set; }
     public string Cidade { get; set; }
     public string Estado { get; set; }
-
+    public string NomeSacadorAvalista { get; set; }
+    public DateTime DataMora { get; set; }
+    public string PrazoDias { get; set; }
 
 
     public string NumeroSequencialArquivo { get; set; }
