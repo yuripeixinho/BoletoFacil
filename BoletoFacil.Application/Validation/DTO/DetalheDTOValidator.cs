@@ -28,12 +28,12 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
         RuleFor(x => x!.Instrucao1)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Instrução 1"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Instrução 1"))
-            .MaximumLength(2);
+            .MaximumLength(2).WithMessage(MensagemGenerica.TamanhoMaximo("Instrução 1", 2));
 
         RuleFor(x => x!.Instrucao2)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Instrução 2"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Instrução 2"))
-            .MaximumLength(2);
+            .MaximumLength(2).WithMessage(MensagemGenerica.TamanhoMaximo("Instrução 2", 2));
 
         RuleFor(x => x!.ValorCobranca)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Valor de Desconto"))
@@ -42,28 +42,28 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
         RuleFor(x => x!.CodigoInscricaoPagador)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Código de Inscrição"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Código de Inscrição"))
-            .MaximumLength(2);
+            .MaximumLength(2).WithMessage(MensagemGenerica.TamanhoMaximo("Código de Inscrição", 2));
 
         RuleFor(x => x!.NumeroInscricao)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Número de Inscrição"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Número de Inscrição"))
-            .MinimumLength(11)
-            .MaximumLength(14);
+            .MinimumLength(11).WithMessage(MensagemGenerica.TamanhoEntre("Número de Inscrição", 11, 14))
+            .MaximumLength(14).WithMessage(MensagemGenerica.TamanhoEntre("Número de Inscrição", 11, 14));
 
         RuleFor(x => x!.Nome)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Nome"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Nome"))
-            .MaximumLength(30);
+            .MaximumLength(30).WithMessage(MensagemGenerica.TamanhoMaximo("Nome", 30));
 
         RuleFor(x => x!.Logradouro)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Logradouro"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Logradouro"))
-            .MaximumLength(40);
+            .MaximumLength(40).WithMessage(MensagemGenerica.TamanhoMaximo("Logradouro", 40));
 
         RuleFor(x => x!.Bairro)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Bairro"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Bairro"))
-            .MaximumLength(12);
+            .MaximumLength(12).WithMessage(MensagemGenerica.TamanhoExato("Bairro", 12));
 
         RuleFor(x => x!.CEP)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("CEP"))
@@ -74,15 +74,15 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
         RuleFor(x => x!.Cidade)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Cidade"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Cidade"))
-            .MaximumLength(12);
+            .MaximumLength(12).WithMessage(MensagemGenerica.TamanhoMaximo("Cidade", 12));
 
         RuleFor(x => x!.Estado)
             .NotEmpty().WithMessage(MensagemGenerica.CampoObrigatorio("Estado"))
             .NotNull().WithMessage(MensagemGenerica.CampoNaoNulo("Estado"))
-            .MaximumLength(2);
+            .MaximumLength(2).WithMessage(MensagemGenerica.TamanhoMaximo("Estado", 2));
 
         RuleFor(x => x!.PrazoDias)
-            .MaximumLength(2);
+            .MaximumLength(2).WithMessage(MensagemGenerica.TamanhoMaximo("Prazo de Dias", 2));
     }
 
     private bool SerValorMaiorQueZero(string valor)

@@ -14,6 +14,9 @@ public static class MensagemGenerica
     public static string TamanhoEntre(string nomeCampo, int min, int max)
         => $"O campo '{nomeCampo}' deve ter entre {min} e {max} caracteres.";
 
+    public static string TamanhoMaximo(string nomeCampo, int tamanho)
+    => $"O campo '{nomeCampo}' deve ter até {tamanho} caracteres.";
+
     public static string FormatoInvalido(string nomeCampo)
         => $"O campo '{nomeCampo}' está em formato inválido.";
 
