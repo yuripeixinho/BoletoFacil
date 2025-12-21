@@ -66,13 +66,10 @@ public class StrategyDetalhesItau400
         sb.Append(" ");
         sb.Append(_d.NumeroSequencialArquivo);
 
-
-
-
         string linha = sb.ToString();
 
-        //if (linha.Length != 400)
-        //    throw new InvalidOperationException($"Detalhe deve conter 400 posições. Atual: {linha.Length}");
+        if (linha.Length != 400)
+            throw new InvalidOperationException($"Detalhe deve conter 400 posições. Atual: {linha.Length}");
 
         return linha;
     }

@@ -1,6 +1,9 @@
 ﻿using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.Interfaces.Repositories;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 namespace BoletoFacil.Infrastructure.Data.Repositories;
@@ -56,31 +59,37 @@ public class ExcelRepository : IExcelRepository
 
             var item = new DetalhesDTO
             {
-                CodigoInscricaoId = sheet.Cell(row, 1).GetString(),     // Coluna A
-                NumeroInscricao = sheet.Cell(row, 2).GetString(),        // Coluna B
-                Agencia = sheet.Cell(row, 3).GetString(),     // Coluna C
-                Conta = sheet.Cell(row, 4).GetString(),     // Coluna D
-                DAC = sheet.Cell(row, 5).GetString(), // Coluna E
-                InstrucaoCancelamento = sheet.Cell(row, 6).GetString(), // Coluna F
-                NumeroCarteira = sheet.Cell(row, 7).GetString(), // Coluna G
-                DataVencimento = LerDataExcel(sheet.Cell(row, 8)), // Coluna H
-                ValorCobranca = sheet.Cell(row, 9).GetString(), // Coluna I
-                EspecieTitulo = sheet.Cell(row, 10).GetString(), // Coluna J
-                Instrucao1 = sheet.Cell(row, 11).GetString(), // Coluna K
-                Instrucao2 = sheet.Cell(row, 12).GetString(), // Coluna L
-                JurosMora = sheet.Cell(row, 13).GetString(), // Coluna M
-                DataDesconto = LerDataExcel(sheet.Cell(row, 14)), // Coluna N
-                ValorDesconto = sheet.Cell(row, 15).GetString(), // Coluna O
-                CodigoInscricaoPagador = sheet.Cell(row, 16).GetString(), // Coluna P
-                NumeroInscricaoPagador = sheet.Cell(row, 17).GetString(), // Coluna P
-                Nome = sheet.Cell(row, 18).GetString(), // Coluna P
-                Logradouro = sheet.Cell(row, 19).GetString(), // Coluna P
-                Bairro = sheet.Cell(row, 20).GetString(), // Coluna P
-                CEP = sheet.Cell(row, 21).GetString(), // Coluna P
-                Cidade = sheet.Cell(row, 22).GetString(), // Coluna P
-                Estado = sheet.Cell(row, 23).GetString(), // Coluna P
-                DataMora = LerDataExcel(sheet.Cell(row, 24)), // Coluna N
-                PrazoDias = sheet.Cell(row, 25).GetString(), // Coluna P
+                CodigoInscricaoId = LerIntExcel(sheet.Cell(row, 1), row, "Código de Inscrição"),
+                NumeroInscricao = sheet.Cell(row, 2).GetString(),
+                Agencia = sheet.Cell(row, 3).GetString(),
+                Conta = sheet.Cell(row, 4).GetString(),
+                DAC = sheet.Cell(row, 5).GetString(),
+                InstrucaoCancelamento = sheet.Cell(row, 6).GetString(),
+                NumeroCarteira = sheet.Cell(row, 7).GetString(),
+
+                DataVencimento = LerDataExcel(sheet.Cell(row, 8), row, "Data de Vencimento", obrigatoria: true)!.Value,
+
+                ValorCobranca = LerDecimalExcel(sheet.Cell(row, 9), row, "Valor da Cobrança"),
+
+                EspecieTitulo = sheet.Cell(row, 10).GetString(),
+                Instrucao1 = sheet.Cell(row, 11).GetString(),
+                Instrucao2 = sheet.Cell(row, 12).GetString(),
+                JurosMora = sheet.Cell(row, 13).GetString(),
+
+                DataDesconto = LerDataExcel(sheet.Cell(row, 14), row, "Data de Desconto"),
+                ValorDesconto = LerDecimalExcel(sheet.Cell(row, 15), row, "Valor do Desconto"),
+
+                CodigoInscricaoPagador = sheet.Cell(row, 16).GetString(),
+                NumeroInscricaoPagador = sheet.Cell(row, 17).GetString(),
+                Nome = sheet.Cell(row, 18).GetString(),
+                Logradouro = sheet.Cell(row, 19).GetString(),
+                Bairro = sheet.Cell(row, 20).GetString(),
+                CEP = sheet.Cell(row, 21).GetString(),
+                Cidade = sheet.Cell(row, 22).GetString(),
+                Estado = sheet.Cell(row, 23).GetString(),
+
+                DataMora = LerDataExcel(sheet.Cell(row, 24), row, "Data de Mora"),
+                PrazoDias = sheet.Cell(row, 25).GetString(),
 
             };
 
@@ -90,37 +99,64 @@ public class ExcelRepository : IExcelRepository
         return detalhes;
     }
 
-    private DateTime? LerDataExcel(IXLCell cell)
+    private int LerIntExcel(IXLCell cell, int row, string campo)
     {
-        // Excel como texto → valida formato DD/MM/AAAA
-        if (cell.DataType == XLDataType.Text)
+        if (cell.TryGetValue<int>(out var valor))
+            return valor;
+
+        if (int.TryParse(cell.GetString(), out valor))
+            return valor;
+
+        throw new ValidationException(
+            $"Campo '{campo}' inválido na linha {row}. Valor informado: '{cell.GetString()}'");
+    }
+
+    private decimal LerDecimalExcel(IXLCell cell, int row, string campo)
+    {
+        if (cell.TryGetValue<decimal>(out var valor))
+            return Math.Round(valor, 2);
+
+        var texto = cell.GetString().Trim();
+
+        if (decimal.TryParse(
+                texto,
+                NumberStyles.Number,
+                CultureInfo.GetCultureInfo("pt-BR"),
+                out valor))
         {
-            var texto = cell.GetString().Trim();
+            return Math.Round(valor, 2);
+        }
 
-            if (!DateTime.TryParseExact(
-                    texto,
-                    "dd/MM/yyyy",
-                    CultureInfo.GetCultureInfo("pt-BR"),
-                    DateTimeStyles.None,
-                    out var data))
-            {
-                throw new Exception(
-                    $"Data inválida. Formato esperado: DD/MM/AAAA. Valor recebido: '{texto}'");
-            }
+        throw new ValidationException(
+            $"Campo '{campo}' inválido na linha {row}. Valor informado: '{texto}'");
+    }
 
+    private DateTime? LerDataExcel(IXLCell cell, int row, string campo, bool obrigatoria = false)   
+    {
+        if (cell.IsEmpty())
+        {
+            if (obrigatoria)
+                throw new ValidationException(
+                    $"Campo '{campo}' é obrigatório na linha {row}");
+            return null;
+        }
+
+        if (cell.TryGetValue<DateTime>(out var data))
+            return data;
+
+        var texto = cell.GetString().Trim();
+
+        if (DateTime.TryParseExact(
+                texto,
+                "dd/MM/yyyy",
+                CultureInfo.GetCultureInfo("pt-BR"),
+                DateTimeStyles.None,
+                out data))
+        {
             return data;
         }
 
-        if (cell.DataType == XLDataType.Number)
-        {
-            return DateTime.FromOADate(cell.GetDouble());
-        }
-
-        if (cell.DataType == XLDataType.DateTime)
-        {
-            return cell.GetDateTime();
-        }
-
-        return null;
+        throw new ValidationException(
+            $"Campo '{campo}' inválido na linha {row}. Formato esperado: DD/MM/AAAA. Valor recebido: '{texto}'");
     }
 }

@@ -10,16 +10,18 @@ public class Header
     public string Conta { get; private set; }
     public string DAC { get; private set; }
     public string NomeEmpresa { get; private set; }
+
     public string NumeroSequencialArquivo { get; private set; }
 
-    public Header() // automapper
-    {}
+    public Guid RemessaId { get; private set; }
+    public Remessa Remessa { get; set; }
 
-    public Header(string agencia, string conta, string dac, string nomeEmpresa, string numeroSequencialArquivo)
+
+    public Header(string agencia, string conta, string DAC, string nomeEmpresa, string numeroSequencialArquivo)
     {
         Agencia = agencia;  
         Conta = conta;
-        DAC = dac;
+        this.DAC = DAC;
         NomeEmpresa = nomeEmpresa;
         NumeroSequencialArquivo = numeroSequencialArquivo;
 
@@ -47,8 +49,5 @@ public class Header
             throw new DomainException("O header precisa conter o nome da empresa remetente.");
         if (NomeEmpresa.Length > 30)
             throw new DomainException("O nome da empresa excede o limite permitido de 30 caracteres.");
-
-        if (string.IsNullOrWhiteSpace(NumeroSequencialArquivo))
-            throw new DomainException("O header deve informar o número sequencial do arquivo.");
     }
 }

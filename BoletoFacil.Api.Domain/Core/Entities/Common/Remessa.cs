@@ -6,29 +6,35 @@ namespace BoletoFacil.Domain.Core.Entities.Common;
 public class Remessa
 {
     public Guid RemessaId { get; private set; }
-
-    public DimBanco? DimBanco { get; private set; }      
+    public DimBanco? DimBanco { get; private set; }
     public int BancoId { get; private set; }
 
-
     public Header? Header { get; private set; }
-    public int HeaderId { get; private set; }
-
-    public List<Detalhe> Detalhes { get; private set; }
-    public int DetalheId { get; private set; }
 
 
-    public string ArquivoTXT { get; private set; }
+    private readonly List<Detalhe> _detalhes = new();
+    public IReadOnlyCollection<Detalhe> Detalhes => _detalhes;
 
-    private Remessa() { } // usado apenas por EF e AutoMapper
+    public string? ArquivoTXT { get; private set; }
 
-    public Remessa(Guid remessaId, int bancoId, int headerId, int detalheId, string arquivoTxt)
+    // Necessário para EF Core
+    // Nunca usado pela aplicação
+    // Mantém o domínio seguro
+    protected Remessa() { } // EF
+
+    public Remessa(int bancoId, Header header, List<Detalhe> detalhes)
     {
-        RemessaId = remessaId;     
+        if (bancoId <= 0)
+            throw new DomainException("Banco inválido.");
+
+        Header = header ?? throw new DomainException("Header é obrigatório.");
+
+        if (detalhes is null || !detalhes.Any())
+            throw new DomainException("A remessa deve conter ao menos um detalhe.");
+
         BancoId = bancoId;
-        HeaderId = headerId;
-        DetalheId = detalheId;
-        ArquivoTXT = arquivoTxt;
+        RemessaId = Guid.NewGuid();
+        _detalhes.AddRange(detalhes);
 
         ValidarDominio();
     }
@@ -46,9 +52,7 @@ public class Remessa
 
         Header.ValidarDominio();
         Detalhes.ToList().ForEach(d => d.ValidarDominio());
-
-        if (string.IsNullOrWhiteSpace(ArquivoTXT))
-            throw new DomainException("Não é possível armazenar uma remessa sem o conteúdo do arquivo CNAB.");
+        Detalhes.ToList().ForEach(d => d.ValidarDesconto(d.ValorDesconto));    
     }
 
     public void ArmazenarCNAB(string arquivoTxt)

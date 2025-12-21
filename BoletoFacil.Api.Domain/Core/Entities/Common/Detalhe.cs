@@ -16,71 +16,95 @@ public class Detalhe
     public string Conta { get; private set; }
     public string DAC { get; private set; }
 
+    public string InstrucaoCancelamento { get; private set; }
 
-    // ANALISAR COM MAIS CAUITELA ESSA REGRA DE NEGOCIO
-
-    // TODO:
-    public string InstrucaoCancelamento { get; private set; }   // Deve ser preenchido na remessa somente quando utilizados, na posição 109-110, os códigos de ocorrência 
-                                                    // 35 – Cancelamento de Instrução e 38 – Beneficiário não concorda com alegação do pagador.Para os
-                                                    // demais códigos de ocorrência este campo deverá ser preenchido com zeros.
-                                                    // Obs.: No arquivo retorno será informado o mesmo código da instrução cancelada, e para o cancelamento
-                                                    // de alegação de pagador não há retorno da informação.
-                                                    // TODO:
-
-    // TODO:
-    public string UsoEmpresa { get; private set; } // Campo não obrigatório, de livre utilização pela empresa, cuja informação não é consistida pelo Banco Itaú,
-                                                    // e não sai no aviso de cobrança, retornando ao beneficiário no arquivo retorno em qualquer movimento 
-                                                    // título(baixa, liquidação, confirmação de protesto, etc.) com o mesmo conteúdo da entrada.Para instituições
-                                                    //financeiras (ag: 1248/Bancorp), o conteúdo deste campo também será impresso no rodapé do boleto.
-    // TODO:
-    public string NossoNumero { get; private set; } //Para carteiras com registro: 
-                                                    // Escriturais: é enviado zerado pela empresa e retornado pelo Banco Itaú na confirmação de entrada,
-                                                    // com exceção da carteira 115 e 138 cuja faixa de Nosso Número é de livre utilização pelo beneficiário
-                                                    // seguindo as regras das carteiras Diretas abaixo;  
-
-                                                    // Diretas: é de livre utilização pelo beneficiário, não podendo ser repetida se o número ainda estiver
-                                                    // registrado no Banco Itaú ou se transcorridos menos de 45 dias de sua baixa / liquidação no Banco Itaú.
-                                                    // Dependendo da carteira de cobrança utilizada a faixa de Nosso Número pode ser definida pelo Banco.
-                                                    // Para todas as movimentações envolvendo o título, o “Nosso Número” deve ser informado.
-
-                                                    // Para carteiras sem registro: 
-                                                    // Normalmente a empresa define o “Nosso Número” e é responsável pelo seu controle e pelo cálculo do 
-                                                    // DAC – Dígito de Auto conferência (Vide Nota 23).
-
-    public Detalhe() // usado apenas por EF e AutoMapper
-    { }
+    public string UsoEmpresa { get; private set; }
+    public string NossoNumero { get; private set; }
 
 
-    public Detalhe(int detalheId, int codigoInscricaoId, string numeroInscricao, string agencia, string conta, string dac, string instrucaoCancelamento, string usoEmpresa, string nossoNumero)
+    public string NumeroCarteira { get; private set; }
+    public DateTime DataVencimento { get; private set; }
+    public decimal ValorCobranca { get; private set; }
+    public string Instrucao1 { get; private set; }
+    public string Instrucao2 { get; private set; }
+    public DateTime? DataDesconto { get; private set; }
+    public decimal ValorDesconto { get; private set; }
+    public string Nome { get; private set; }
+    public string Logradouro { get; private set; }
+    public string Bairro { get; private set; }
+    public string CEP { get; private set; }
+    public string Cidade { get; private set; }
+    public string Estado { get; private set; }
+    public string NomeSacadorAvalista { get; private set; }
+    public string NumeroSequencialArquivo { get; private set; }
+
+    public Guid RemessaId { get; private set; }
+    public Remessa Remessa { get; set; }
+
+
+    public Detalhe( int detalheId, int codigoInscricaoId, string numeroInscricao, string agencia, string conta, string DAC, string instrucaoCancelamento,
+                    string usoEmpresa, string nossoNumero, string numeroCarteira, DateTime dataVencimento, decimal valorCobranca, string instrucao1, string instrucao2, 
+                    DateTime? dataDesconto, decimal valorDesconto, string nome, string logradouro, string bairro, string CEP, string cidade, string estado, 
+                    string nomeSacadorAvalista, string numeroSequencialArquivo)
     {
         DetalheId = detalheId;
         CodigoInscricaoId = codigoInscricaoId;
         NumeroInscricao = numeroInscricao;
         Agencia = agencia;
         Conta = conta;
-        DAC = dac;
+        this.DAC = DAC;
         InstrucaoCancelamento = instrucaoCancelamento;
         UsoEmpresa = usoEmpresa;
         NossoNumero = nossoNumero;
 
-        ValidarDominio();
+        NumeroCarteira = numeroCarteira;
+        DataVencimento = dataVencimento;
+        ValorCobranca = valorCobranca;
+        Instrucao1 = instrucao1;
+        Instrucao2 = instrucao2;
+        DataDesconto = dataDesconto;
+
+        Nome = nome;
+        Logradouro = logradouro;
+        Bairro = bairro;
+        this.CEP = CEP;
+        Cidade = cidade;
+        Estado = estado;
+        NomeSacadorAvalista = nomeSacadorAvalista;
+        NumeroSequencialArquivo = numeroSequencialArquivo;
     }
-    
+
     public void ValidarDominio()
     {
         if (string.IsNullOrWhiteSpace(Agencia))
-            throw new DomainException("Não é possível criar um header sem agência definida.");
+            throw new DomainException("Não é possível criar um detalhe sem agência definida.");
         if (!Regex.IsMatch(Agencia, @"^\d{4}$"))
             throw new DomainException("A agência deve possuir exatamente 4 dígitos numéricos.");
 
         if (string.IsNullOrWhiteSpace(Conta))
-            throw new DomainException("O header deve conter uma conta bancária associada.");
-        if (!Regex.IsMatch(Conta, @"^\d{5,10}$"))
-            throw new DomainException("A conta bancária informada possui formato inválido.");
+            throw new DomainException("O detalhe deve conter uma conta bancária associada.");
 
         if (string.IsNullOrWhiteSpace(DAC))
-            throw new DomainException("O header deve possuir um dígito verificador (DAC) para a conta.");
+            throw new DomainException("O detalhe deve possuir um dígito verificador (DAC) para a conta.");
         if (!Regex.IsMatch(DAC, @"^[A-Z0-9]{1}$"))
             throw new DomainException("O dígito verificador (DAC) deve conter apenas um caractere alfanumérico.");
+
+        if (DataVencimento <= DateTime.Today)
+            throw new DomainException("A data de vencimento não pode ser menor que a data atual.");
+    }
+
+    public void ValidarDesconto(decimal valorDesconto)
+    {
+        if (valorDesconto < 0)
+            throw new DomainException("O valor do desconto não pode ser negativo.");
+
+        if (valorDesconto > ValorCobranca)
+            throw new DomainException("O desconto não pode ser maior que o valor do título.");
+
+        if (valorDesconto > ValorCobranca * 0.9m)
+            throw new DomainException("O desconto não pode ultrapassar 90% do valor do título.");
+
+        if (DataDesconto >= DataVencimento)
+            throw new DomainException("A data de desconto deve ser anterior à data de vencimento.");
     }
 }

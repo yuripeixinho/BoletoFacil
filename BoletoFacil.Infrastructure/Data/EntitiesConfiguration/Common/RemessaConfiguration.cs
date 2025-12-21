@@ -18,10 +18,5 @@ public class RemessaConfiguration : IEntityTypeConfiguration<Remessa>
                .WithMany() 
                .HasForeignKey(r => r.BancoId)
                .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(r => r.Header)
-               .WithOne()
-               .HasForeignKey<Remessa>(r => r.HeaderId)
-               .OnDelete(DeleteBehavior.Restrict);
     }
 }

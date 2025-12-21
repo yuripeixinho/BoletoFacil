@@ -1,7 +1,6 @@
 ﻿using BoletoFacil.Application.DTOs.Common;
 using BoletoFacil.Application.Validation.Messages;
 using FluentValidation;
-using System.Globalization;
 
 namespace BoletoFacil.Application.Validation.DTO;
 
@@ -85,17 +84,11 @@ public class DetalheDTOValidator : AbstractValidator<DetalhesDTO?>
             .MaximumLength(2).WithMessage(MensagemGenerica.TamanhoMaximo("Prazo de Dias", 2));
     }
 
-    private bool SerValorMaiorQueZero(string valor)
+    private bool SerValorMaiorQueZero(decimal valor)
     {
-        if (string.IsNullOrWhiteSpace(valor))
+        if (valor <= 0)
             return false;
 
-        // aceita 10.50 e 10,50
-        return decimal.TryParse(
-            valor,
-            NumberStyles.Number,
-            CultureInfo.GetCultureInfo("pt-BR"),
-            out var valorDecimal)
-            && valorDecimal > 0;
+        return true;
     }
 }

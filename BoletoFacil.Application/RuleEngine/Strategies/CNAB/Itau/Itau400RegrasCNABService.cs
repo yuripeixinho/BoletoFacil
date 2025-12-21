@@ -19,7 +19,6 @@ public class Itau400RegrasCNABService : IRegraCNABService
             detalhe.NumeroSequencialArquivo = sequencial.ToString("D6");
             sequencial++;
         }
-
    
         //remessa.TrailerDTO.NumeroSequencialArquivo = sequencial.ToString("D6");
     }

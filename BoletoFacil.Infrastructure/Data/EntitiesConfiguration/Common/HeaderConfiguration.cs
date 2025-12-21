@@ -12,6 +12,11 @@ public class HeaderItauCNAB400Configuration : IEntityTypeConfiguration<Header>
 
         builder.HasKey(h => h.HeaderId);
 
+        builder.HasOne(h => h.Remessa)
+           .WithOne(r => r.Header)
+           .HasForeignKey<Header>(h => h.RemessaId)
+           .OnDelete(DeleteBehavior.Cascade);
+
         builder.Property(h => h.Agencia).IsRequired().HasMaxLength(4);
         builder.Property(h => h.Conta).IsRequired().HasMaxLength(5);
         builder.Property(h => h.DAC).IsRequired().HasMaxLength(1);

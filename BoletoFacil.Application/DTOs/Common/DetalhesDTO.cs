@@ -2,7 +2,7 @@
 
 public class DetalhesDTO
 {
-    public string CodigoInscricaoId { get; set; }
+    public int CodigoInscricaoId { get; set; }
     public string NumeroInscricao { get; set; }
     public string Agencia { get; set; }
     public string Conta { get; set; }
@@ -14,14 +14,14 @@ public class DetalhesDTO
     public string UsoBanco { get; set; }
     public string CodigoCarteira { get; set; }
     public string NumeroDocumento { get; set; }
-    public DateTime? DataVencimento { get; set; }
-    public string ValorCobranca { get; set; }
+    public DateTime DataVencimento { get; set; }
+    public decimal ValorCobranca { get; set; }
     public string EspecieTitulo { get; set; }
     public string Instrucao1 { get; set; }
     public string Instrucao2 { get; set; }
     public string JurosMora { get; set; }
     public DateTime? DataDesconto { get; set; }
-    public string ValorDesconto { get; set; }
+    public decimal ValorDesconto { get; set; }
     public string CodigoInscricaoPagador { get; set; }
     public string NumeroInscricaoPagador { get; set; }
     public string Nome { get; set; }

@@ -1,6 +1,6 @@
 ﻿using BoletoFacil.Domain.Core.Entities.Common;
 using BoletoFacil.Domain.Core.Entities.Dimension;
-using BoletoFacil.Infrastructure.Data.EntitiesConfiguration.Common.Dimension;
+using BoletoFacil.Infrastructure.Data.Seeds.Dimensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoletoFacil.Infrastructure.Data.Context;
@@ -23,6 +23,10 @@ public class BoletoFacilContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(BoletoFacilContext).Assembly);
+
+        DimBancoSeed.Seed(modelBuilder);
+        DimCodigoInscricaoSeed.Seed(modelBuilder);
+
     }
 }
 

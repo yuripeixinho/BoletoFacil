@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BoletoFacil.Application.DTOs.BoundedContexts.Itau.CNAB400;
 using BoletoFacil.Application.DTOs.Common;
-using BoletoFacil.Application.Interfaces.Services;
 using BoletoFacil.Application.Strategies.CreateRemessa.BoundedContexts.Itau.CNAB400.Layouts;
 using System.Text;
 

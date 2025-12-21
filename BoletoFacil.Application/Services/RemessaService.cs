@@ -5,6 +5,8 @@ using BoletoFacil.Application.Interfaces.Repositories;
 using BoletoFacil.Application.Interfaces.Services;
 using BoletoFacil.Application.Validation.Business;
 using BoletoFacil.Domain.Core.Entities.Common;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
 
 namespace BoletoFacil.Application.Services;
 
@@ -46,16 +48,59 @@ public class RemessaService : IRemessaService
         await _validator.ValidarAsync(dados);
 
         // regras de negócio
-        RegrasNegocioPorBanco(dados);
+        ObterRegrasNegocioPorBanco(dados);
         await _remessaBusinessValidator.ValidarGeracaoRemessaAsync(dados);
 
         // factory para carregar o layout
         var layout = _remessaFactory.IdentificarRemessaPorBancoELayout(dados.Banco, dados.Layout); // Factory
         var cnab = layout.CarregarLayoutEspecifico(dados); // A partir da escolha do Factory gera o Strategy para o banco e layout correspondente
 
-        // mapear 
-        var remessaEntity = _mapper.Map<Remessa>(dados);
-        remessaEntity.ArmazenarCNAB(cnab);  
+        // mapear informações DTO para persistência na base de dados (entidades)
+
+        var header = new Header(
+            agencia: dados.HeaderDTO.Agencia,
+            conta: dados.HeaderDTO.Conta,
+            DAC: dados.HeaderDTO.DAC,
+            nomeEmpresa: dados.HeaderDTO.NomeEmpresa,
+            numeroSequencialArquivo: dados.HeaderDTO.NumeroSequencialArquivo
+        );
+
+        var detalhes = dados.DetalhesDTO
+            .Select(d => new Detalhe(
+                detalheId: 0,
+                codigoInscricaoId: d.CodigoInscricaoId,
+                numeroInscricao: d.NumeroInscricao,
+                agencia: d.Agencia,
+                conta: d.Conta,
+                DAC: d.DAC,
+                instrucaoCancelamento: d.InstrucaoCancelamento,
+                usoEmpresa: d.UsoEmpresa,
+                nossoNumero: d.NossoNumero,
+                numeroCarteira: d.NumeroCarteira,
+                dataVencimento: d.DataVencimento,
+                valorCobranca: d.ValorCobranca,
+                instrucao1: d.Instrucao1,
+                instrucao2: d.Instrucao2,
+                dataDesconto: d.DataDesconto,
+                valorDesconto:  d.ValorDesconto,
+                nome: d.Nome,
+                logradouro: d.Logradouro,
+                bairro: d.Bairro,
+                CEP: d.CEP,
+                cidade: d.Cidade,
+                estado: d.Estado,
+                nomeSacadorAvalista: d.Nome,
+                numeroSequencialArquivo: d.NumeroSequencialArquivo  
+            ))
+            .ToList();
+
+        var remessaEntity = new Remessa(
+            bancoId: int.Parse(dados.Banco),
+            header: header,
+            detalhes: detalhes
+        );
+
+        remessaEntity.ArmazenarCNAB(cnab);
 
         // consistir na base de dados
         await _remessaRepository.SalvarRemessaAsync(remessaEntity);
@@ -74,7 +119,7 @@ public class RemessaService : IRemessaService
         return dados;
     }
     
-    private void RegrasNegocioPorBanco(RemessaDTO dados)
+    private void ObterRegrasNegocioPorBanco(RemessaDTO dados)
     {
         var regras = _regrasCNABFactory.ObterRegras(dados.Banco, dados.Layout);
 
