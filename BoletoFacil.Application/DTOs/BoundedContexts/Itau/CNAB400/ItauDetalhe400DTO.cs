@@ -34,7 +34,5 @@ public class ItauDetalhe400DTO
     public string NomeSacadorAvalista { get; set; }
     public DateTime DataMora { get; set; }
     public string PrazoDias { get; set; }
-
-
     public string NumeroSequencialArquivo { get; set; }
 }

@@ -19,8 +19,8 @@ public class Itau400RegrasCNABService : IRegraCNABService
             detalhe.NumeroSequencialArquivo = sequencial.ToString("D6");
             sequencial++;
         }
-   
-        //remessa.TrailerDTO.NumeroSequencialArquivo = sequencial.ToString("D6");
+
+        remessa.TrailerDTO.NumeroSequencialArquivo = sequencial.ToString("D6");
     }
 
     public string GerarUsoEmpresa(string sequencial)

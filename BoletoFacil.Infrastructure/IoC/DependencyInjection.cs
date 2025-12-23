@@ -3,8 +3,6 @@ using BoletoFacil.Application.Factories.Interfaces;
 using BoletoFacil.Application.Interfaces.Repositories;
 using BoletoFacil.Application.Interfaces.Services;
 using BoletoFacil.Application.Mappings;
-using BoletoFacil.Application.Mappings.Common;
-using BoletoFacil.Application.RuleEngine.Strategies.CNAB.Base;
 using BoletoFacil.Application.RuleEngine.Strategies.CNAB.Itau;
 using BoletoFacil.Application.Services;
 using BoletoFacil.Application.Strategies.CreateRemessa;
@@ -19,7 +17,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace BoletoFacil.Infrastructure.IoC;
 
@@ -60,7 +57,6 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(AppDomain.CurrentDomain.Load("BoletoFacil.Application"));
 
         // Automapper
-        services.AddAutoMapper(typeof(RemessaProfile));
         services.AddAutoMapper(typeof(ItauRemessaProfile));
 
         // MediatR

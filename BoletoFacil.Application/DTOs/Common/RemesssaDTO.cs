@@ -6,5 +6,6 @@ public class RemessaDTO
     public string? Layout { get; set; }  
     public string? Carteira { get; set; }
     public HeaderDTO? HeaderDTO { get; set; }   
-    public List<DetalhesDTO>? DetalhesDTO { get; set; }  
+    public List<DetalhesDTO>? DetalhesDTO { get; set; }
+    public TrailerDTO? TrailerDTO { get; set; } = new TrailerDTO(); 
 }

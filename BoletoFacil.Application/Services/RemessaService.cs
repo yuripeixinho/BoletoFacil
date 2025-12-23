@@ -43,7 +43,7 @@ public class RemessaService : IRemessaService
 
     public async Task<string> GerarRemessaAsync(ExcelRemessaDTO excelRemessaDTO)
     {
-        // identificar 
+        // ler e identificar baseado na planilha
         var dados = IdentificarBancoELayoutCNAB(excelRemessaDTO);
         await _validator.ValidarAsync(dados);
 

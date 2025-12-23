@@ -10,5 +10,6 @@ public class ItauRemessaProfile : Profile
     {
         CreateMap<HeaderDTO, ItauHeader400DTO>();
         CreateMap<DetalhesDTO, ItauDetalhe400DTO>();
+        CreateMap<TrailerDTO, ItauTrailer400DTO>();
     }
 }

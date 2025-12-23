@@ -21,10 +21,11 @@ public class BancoItauRemessaGenerator400 : IRemessaGenerator
 
         ConstruirHeaderTXT(cnab, remessaDTO.HeaderDTO);
         ConstruirDetalheTXT(cnab, remessaDTO.DetalhesDTO);
+        ConstruirTrailerTXT(cnab, remessaDTO.TrailerDTO);
 
         return cnab.ToString();
     }
-    
+
     private void ConstruirHeaderTXT(StringBuilder sb, HeaderDTO HeaderDTO)
     {
         var headerItauDTO = _mapper.Map<ItauHeader400DTO>(HeaderDTO);
@@ -42,5 +43,14 @@ public class BancoItauRemessaGenerator400 : IRemessaGenerator
             var detalheLinha = new StrategyDetalhesItau400(detalhe).Gerar();
             sb.AppendLine(detalheLinha);
         }
+    }
+
+    private void ConstruirTrailerTXT(StringBuilder sb, TrailerDTO trailerDTO)
+    {
+        var trailerItauDTO = _mapper.Map<ItauTrailer400DTO>(trailerDTO);
+
+        var trailer = new StrategyTrailerItau400(trailerItauDTO).Gerar();
+
+        sb.AppendLine(trailer);
     }
 }
