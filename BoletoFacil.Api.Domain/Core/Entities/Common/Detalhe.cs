@@ -56,14 +56,12 @@ public class Detalhe
         InstrucaoCancelamento = instrucaoCancelamento;
         UsoEmpresa = usoEmpresa;
         NossoNumero = nossoNumero;
-
         NumeroCarteira = numeroCarteira;
         DataVencimento = dataVencimento;
         ValorCobranca = valorCobranca;
         Instrucao1 = instrucao1;
         Instrucao2 = instrucao2;
         DataDesconto = dataDesconto;
-
         Nome = nome;
         Logradouro = logradouro;
         Bairro = bairro;
