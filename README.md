@@ -1,7 +1,7 @@
 # BoletoFácil
 
 <p align="center">
-  <img src="./assets/bolettofacil.png" alt="BoletoFácil Logo" width="500"/>
+  <img src="./bolettofacil.png" alt="BoletoFácil Logo" width="500"/>
 </p>
 ---
 
@@ -19,5 +19,6 @@
 - [Como Executar o Projeto](#-como-executar-o-projeto)
 - [Possíveis Evoluções](#-possíveis-evoluções)
 - [Autor](#-autor)
+
 
 
