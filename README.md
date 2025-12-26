@@ -127,4 +127,14 @@ BoletoFacil (Solution)
 
 # Modelagem e Persistnecia de dados
 
+Aqui será a modelagem e
+
+
+# 🚀 Possíveis Evoluções
+- Inclusão de novos bancos
+- Versionamento de layouts CNAB
+- Cache
+- Mensageria
+- Autenticação JWT
+
 
