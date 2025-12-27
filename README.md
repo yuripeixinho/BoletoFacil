@@ -23,18 +23,22 @@ Desde sua concepção, o projeto foi pensado para ser extensível, possibilitand
 - [Aqui será um bloco falando sobre os layouts baseados em planilha]
 - [Disponibilidade de planilhas exemplos para usuário utilizar]
 - [Vídeo intuitivo e didático sobre a utilização do sistema com o Swagger]
-
+TODO
 
 # Arquitetura
 O **BoletoFácil** foi estruturado com foco em **arquitetura de alto nível**, priorizando **isolamento das regras de negócio**, **baixo acoplamento** e **facilidade de evolução**, especialmente considerando a necessidade de escalar para múltiplos **bancos** e **layouts bancários (CNAB)**. Como dito anteriormente, simples para o usuário e robusto por dentro.
 A arquitetura adotada combina conceitos de **Clean Architecture**, **Domain-Driven Design (DDD)**, **CQRS** + **Mediator Pattern**, **Service Layer** e padrões clássicos de design, garantindo um sistema flexível e preparado para crescimento.
 
 ### Padrões Arquiteturais
-- Repository Pattern - Abstração de acesso a dados
+- Clean Architecture
+- Repository Pattern
+- Domain-Driven Design (DDD), Bounded Contexts, Aggregates
+- CQRS, Mediator
+- Service Layer
+- Simple Factory, Strategy Method
+- Gobal Exceptions com o padrão Microsoft `DetailProblem`
 
-
-
-### Visão Geral da Estrutura
+### Visão Resumida da Estrutura
 
 ```text
 BoletoFacil (Solution)
@@ -114,7 +118,7 @@ BoletoFacil (Solution)
 
 
 # Modelagem e Persistência de dados
-
+TODO
 <img width="1906" height="1155" alt="image" src="https://github.com/user-attachments/assets/be80c332-7722-4dc7-add8-8d81446a594e" />
 
 
@@ -127,4 +131,5 @@ BoletoFacil (Solution)
 - Leitura de retornos bancários
 - Camada de validação para os endereços (busca CEP)
 - Testes unitários
+
 
