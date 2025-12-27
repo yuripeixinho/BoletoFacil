@@ -1,27 +1,40 @@
-<p align="center"><img width="600" height="500" alt="boletofacillogo" src="https://github.com/user-attachments/assets/ca9cbd50-e553-44d6-bacb-1372de79604d" />
+# BoletoFácil - Gerador de CNABs eletrônicos via planilha
 
-# 📌 Sumário
-- [Visão Gera](#-visão-geral)
-- [Objetivo do Projeto](#-objetivo-do-projeto)
-- [Arquitetura](#-arquitetura)
-- [Organização do Projeto](#-organização-do-projeto)
-- [Tecnologias e Principais Abordagens](#-tecnologias-utilizadas)
-- [Fluxo de Processamento](#-fluxo-de-processamento)
-- [Persistência de Dados](#-persistência-de-dados)
-- [Possíveis Evoluções](#-possíveis-evoluções)
+<div align="center">
+  <img width="1408" height="736" alt="Gemini_Generated_Image_x9mpcwx9mpcwx9mp" src="https://github.com/user-attachments/assets/d60ea209-a39e-4711-802c-f5955ac2fac8" />
 
-# Visão Geral
-O projeto nasceu da necessidade de aplicar meus conhecimentos em algo tangível. Por ser baseados em layouts bancários o BoletoFacil possuí regras de negócios diretas, com início, meio e fim bem disposto. Desse modo, concentro meu foco na técnica de programação, modelagem do sistema, dados, arquitetura ao invés de utilizar um projeto onde teria que criar essas regras de negócio do zero. Ele foi pensado pra ser extensível permitindo a inclusão de novos bancos e layouts sem impactos no core do sistema
+  **Da planilha ao CNAB em segundos. Simples para o usuário, robusto por dentro.**
 
-# Objetivo do projeto
-Este projeto tem como objetivo automatizar a geração de arquivos de cobrança bancária (CNAB) a partir de uma planilha de dados estruturada. Com apenas uma planilha corretamente preenchida, o sistema é capaz de transformar informações financeiras em arquivos bancários compatíveis com os padrões CNAB 400 e CNAB 240, prontos para envio aos bancos e persisti-los em nossa base de dados.
+  <img src="https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" />
+  <img src="https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white" />
+  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" />
+</div>
+
+# Objetivo
+Este projeto tem como objetivo automatizar a geração de arquivos de cobrança bancária (CNAB) a partir de uma planilha de dados estruturada. A partir de uma planilha corretamente preenchida, o sistema é capaz de converter informações financeiras em arquivos bancários compatíveis com os padrões CNAB 400 e CNAB 240, prontos para envio às instituições financeiras e para persistência em nossa base de dados.
+
+# Porque o projeto existe?
+O projeto nasceu da necessidade de aplicar meus conhecimentos em um contexto real e tangível. Por ser baseado em layouts bancários, o BoletoFácil possui regras de negócio bem definidas, com início, meio e fim claramente estabelecidos. Isso permitiu concentrar o foco na técnica de programação, modelagem do sistema, estrutura de dados e arquitetura, em vez de investir tempo na criação de regras de negócio artificiais.
+<br/>
+
+Desde sua concepção, o projeto foi pensado para ser extensível, possibilitando a inclusão de novos bancos e layouts bancários sem impactos no core da aplicação.
+
+# Como usar?
+- [Aqui será um bloco falando sobre os layouts baseados em planilha]
+- [Disponibilidade de planilhas exemplos para usuário utilizar]
+- [Vídeo intuitivo e didático sobre a utilização do sistema com o Swagger]
+
 
 # Arquitetura
-O **BoletoFácil** foi estruturado com foco em **arquitetura de alto nível**, priorizando **isolamento das regras de negócio**, **baixo acoplamento** e **facilidade de evolução**, especialmente considerando a necessidade de escalar para múltiplos **bancos** e **layouts bancários (CNAB)**.
+O **BoletoFácil** foi estruturado com foco em **arquitetura de alto nível**, priorizando **isolamento das regras de negócio**, **baixo acoplamento** e **facilidade de evolução**, especialmente considerando a necessidade de escalar para múltiplos **bancos** e **layouts bancários (CNAB)**. Como dito anteriormente, simples para o usuário e robusto por dentro.
 A arquitetura adotada combina conceitos de **Clean Architecture**, **Domain-Driven Design (DDD)**, **CQRS** + **Mediator Pattern**, **Service Layer** e padrões clássicos de design, garantindo um sistema flexível e preparado para crescimento.
 
+### Padrões Arquiteturais
+- Repository Pattern - Abstração de acesso a dados
 
-### 📐 Visão Geral da Estrutura
+
+
+### Visão Geral da Estrutura
 
 ```text
 BoletoFacil (Solution)
@@ -96,45 +109,21 @@ BoletoFacil (Solution)
 │       └── DependencyInjection.cs
 ```
 
-## 🛠️ Tecnologias Utilizadas e Principais Abordagens
-
-- .NET
-- ASP.NET Core Web API
-- Entity Framework Core
-- Dapper
-- SQL Server
-- FluentValidation
-- AutoMapper
-- Swagger / OpenAPI
-  
-- Strategy Pattern para layouts bancários
-- Validações com FluentValidation
-- DTOs para isolamento da API
-- Regras críticas protegidas no domínio
-- Fail Fast Validation
-- Código orientado a extensibilidade  
+# Fluxo de Processamento
+[Devo colocar o fluxo de processamento da aplicação ou uma imagem do Escalidraw desse fluxo?]
 
 
-# 🔁 Fluxo de Processamento
+# Modelagem e Persistência de dados
 
-1. Cliente envia requisição HTTP
-2. Controller recebe o DTO
-3. Validações são aplicadas
-4. Strategy correta é selecionada (ex: Banco + Layout)
-5. Regras de domínio são executadas
-6. Arquivo de remessa é gerado
-7. Resposta é retornada ao cliente
-
-# Modelagem e Persistnecia de dados
-
-Aqui será a modelagem e
+<img width="1906" height="1155" alt="image" src="https://github.com/user-attachments/assets/be80c332-7722-4dc7-add8-8d81446a594e" />
 
 
-# 🚀 Possíveis Evoluções
+
+
+# Possíveis Evoluções
 - Inclusão de novos bancos
-- Versionamento de layouts CNAB
-- Cache
-- Mensageria
-- Autenticação JWT
-
-
+- Débito autorizado
+- Pagamentos
+- Leitura de retornos bancários
+- Camada de validação para os endereços (busca CEP)
+- Testes unitários
