@@ -109,7 +109,7 @@ BoletoFacil (Solution)
 │       └── DependencyInjection.cs
 ```
 
-# Fluxo de Processamento
+# Fluxo de processamento
 [Devo colocar o fluxo de processamento da aplicação ou uma imagem do Escalidraw desse fluxo?]
 
 
@@ -120,10 +120,11 @@ BoletoFacil (Solution)
 
 
 
-# Possíveis Evoluções
+# Possíveis evoluções
 - Inclusão de novos bancos
 - Débito autorizado
 - Pagamentos
 - Leitura de retornos bancários
 - Camada de validação para os endereços (busca CEP)
 - Testes unitários
+
