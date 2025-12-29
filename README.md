@@ -19,26 +19,38 @@ O projeto nasceu da necessidade de aplicar meus conhecimentos em um contexto rea
 
 Desde sua concepção, o projeto foi pensado para ser extensível, possibilitando a inclusão de novos bancos e layouts bancários sem impactos no core da aplicação.
 
-# Como usar?
-## Exportar planilha de exemplos bases
+Como usar
 
-1. A API disponibiliza um endpoint para exportar planilhas bases para testes com as informações já populadas
-- <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/11258d12-3716-43ad-9709-31ff98eb4cf6" />
+O BoletoFácil disponibiliza uma planilha base de exemplo, já preenchida com dados demonstrativos, para facilitar os testes e o entendimento do layout esperado. A partir dessa planilha, é possível realizar a conversão automática para um arquivo de cobrança bancária (CNAB).
 
-2. No final da exportação você terá um arquivo com datas e informações demonstrativas
-- <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/e4e7aa47-3ea2-438d-bb1c-743c3aca3b64" />
+# O fluxo de utilização ocorre em dois passos simples:
 
-## Gerar arquivo de cobrança bancária (CNAB)
+### 1️⃣ Exportar planilha de exemplo
 
-3. Após exportar os arquivos você poderá enviar no endpoint de gerar a remessa e o resultado será o arquivo
-- <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/c927ac6f-951d-478f-9d96-b6049b0fa6af" />
+Acesse o Swagger da aplicação e execute o endpoint responsável por exportar a planilha base.
 
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/11258d12-3716-43ad-9709-31ff98eb4cf6" />
 
+Ao final da execução, será gerado um arquivo contendo:
+- Datas preenchidas automaticamente
+- Informações financeiras fictícias
+- Estrutura compatível com os layouts CNAB suportados
+- Essa planilha funciona como modelo oficial de preenchimento para a geração das remessas.
 
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/e4e7aa47-3ea2-438d-bb1c-743c3aca3b64" />
 
+### 2️⃣ Gerar arquivo de cobrança bancária (CNAB)
 
+Após preencher ou ajustar a planilha exportada, envie o arquivo no request body do endpoint responsável pela geração da remessa.
 
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/c927ac6f-951d-478f-9d96-b6049b0fa6af" />
 
+O sistema irá:
+- Ler e validar os dados da planilha
+- Aplicar as regras de negócio do banco e do layout selecionado
+- Gerar o arquivo CNAB (.txt) pronto para envio à instituição financeira
+- Persistir as informações relevantes na base de dados
+  
 # Arquitetura
 O **BoletoFácil** foi estruturado com foco em **arquitetura de alto nível**, priorizando **isolamento das regras de negócio**, **baixo acoplamento** e **facilidade de evolução**, especialmente considerando a necessidade de escalar para múltiplos **bancos** e **layouts bancários (CNAB)**. Como dito anteriormente, simples para o usuário e robusto por dentro.
 A arquitetura adotada combina conceitos de **Clean Architecture**, **Domain-Driven Design (DDD)**, **CQRS** + **Mediator Pattern**, **Service Layer** e padrões clássicos de design, garantindo um sistema flexível e preparado para crescimento.
@@ -130,13 +142,8 @@ BoletoFacil (Solution)
 # Fluxo de processamento
 [Devo colocar o fluxo de processamento da aplicação ou uma imagem do Escalidraw desse fluxo?]
 
-
-# Modelagem e Persistência de dados
-TODO
+# Modelagem do sistema
 <img width="1906" height="1155" alt="image" src="https://github.com/user-attachments/assets/be80c332-7722-4dc7-add8-8d81446a594e" />
-
-
-
 
 # Possíveis evoluções
 - Inclusão de novos bancos
@@ -145,6 +152,7 @@ TODO
 - Leitura de retornos bancários
 - Camada de validação para os endereços (busca CEP)
 - Testes unitários
+
 
 
 
