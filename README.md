@@ -20,10 +20,24 @@ O projeto nasceu da necessidade de aplicar meus conhecimentos em um contexto rea
 Desde sua concepção, o projeto foi pensado para ser extensível, possibilitando a inclusão de novos bancos e layouts bancários sem impactos no core da aplicação.
 
 # Como usar?
-- [Aqui será um bloco falando sobre os layouts baseados em planilha]
-- [Disponibilidade de planilhas exemplos para usuário utilizar]
-- [Vídeo intuitivo e didático sobre a utilização do sistema com o Swagger]
-TODO
+## Exportar planilha de exemplos bases
+
+1. A API disponibiliza um endpoint para exportar planilhas bases para testes com as informações já populadas
+- <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/11258d12-3716-43ad-9709-31ff98eb4cf6" />
+
+2. No final da exportação você terá um arquivo com datas e informações demonstrativas
+- <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/e4e7aa47-3ea2-438d-bb1c-743c3aca3b64" />
+
+## Gerar arquivo de cobrança bancária (CNAB)
+
+3. Após exportar os arquivos você poderá enviar no endpoint de gerar a remessa e o resultado será o arquivo
+- <img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/c927ac6f-951d-478f-9d96-b6049b0fa6af" />
+
+
+
+
+
+
 
 # Arquitetura
 O **BoletoFácil** foi estruturado com foco em **arquitetura de alto nível**, priorizando **isolamento das regras de negócio**, **baixo acoplamento** e **facilidade de evolução**, especialmente considerando a necessidade de escalar para múltiplos **bancos** e **layouts bancários (CNAB)**. Como dito anteriormente, simples para o usuário e robusto por dentro.
@@ -131,5 +145,6 @@ TODO
 - Leitura de retornos bancários
 - Camada de validação para os endereços (busca CEP)
 - Testes unitários
+
 
 
