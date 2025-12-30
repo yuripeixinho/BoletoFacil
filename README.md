@@ -1,7 +1,8 @@
-# BoletoFácil - Gerador de CNABs eletrônicos a partir de planilhas
 
 <div align="center">
-  <img width="1408" height="736" alt="BoletoFácil" src="https://github.com/user-attachments/assets/d60ea209-a39e-4711-802c-f5955ac2fac8" />
+
+
+<img width="380" height="843" alt="logotipo" src="https://github.com/user-attachments/assets/e5b113d8-156e-4200-89fc-e9e0477a3203" />
 
   **Da planilha ao CNAB em segundos. Simples para o usuário, arquiteturalmente sólido por dentro.**
 
@@ -26,10 +27,10 @@ O projeto nasceu da necessidade de aplicar meus conhecimentos em um contexto rea
 <br/>
 Desde sua concepção, o BoletoFácil foi projetado para crescer sem impacto no core da aplicação, permitindo a inclusão de novos bancos, layouts e fluxos com baixo acoplamento.
 
-# 🔄 Fluxo de Utilização
+# Como usar?
 O fluxo de uso foi pensado para ser extremamente simples para quem consome a API, mesmo lidando com um domínio complexo.
 
-### 1️⃣ Exportar planilha de exemplo
+### 1️. Exportar planilha de exemplo
 A aplicação disponibiliza, via Swagger, um endpoint que gera uma planilha base oficial.
 Essa planilha:
 - Já vem com datas preenchidas automaticamente
@@ -39,15 +40,16 @@ Essa planilha:
 
 <img width="800" height="600" src="https://github.com/user-attachments/assets/11258d12-3716-43ad-9709-31ff98eb4cf6" />
 
-### 2️⃣ Gerar arquivo de cobrança bancária (CNAB)
+### 2️. Gerar arquivo de cobrança bancária (CNAB)
 Após o preenchimento da planilha, o usuário realiza o upload do arquivo no endpoint de geração de remessas.
+O sistema irá:
+- Ler e validar os dados da planilha
+- Aplicar regras específicas do banco e do layout
+- Gerar o arquivo CNAB (.txt) pronto para envio bancário
+- Persistir os dados relevantes para rastreabilidade
 <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/c927ac6f-951d-478f-9d96-b6049b0fa6af" />
 
-O sistema então:
-- Lê e valida os dados da planilha
-- Aplica regras específicas do banco e do layout
-- Gera o arquivo CNAB (.txt) pronto para envio bancário
-- Persiste os dados relevantes para rastreabilidade
+
   
 # Arquitetura
 O **BoletoFácil** foi estruturado com foco em **arquitetura de alto nível**, priorizando **isolamento das regras de negócio**, **baixo acoplamento** e **facilidade de evolução**, especialmente considerando a necessidade de escalar para múltiplos **bancos** e **layouts bancários (CNAB)**. Como dito anteriormente, simples para o usuário e robusto por dentro.
@@ -141,11 +143,11 @@ BoletoFacil (Solution)
 ```
 
 
-# Modelagem do sistema
+# Modelagem do Sistema
 <img width="1906" height="1155" alt="image" src="https://github.com/user-attachments/assets/be80c332-7722-4dc7-add8-8d81446a594e" />
 
 
-# Possíveis evoluções
+# Possíveis Evoluções
 - Inclusão de novos bancos
 - Débito autorizado
 - Pagamentos
