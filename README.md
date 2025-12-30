@@ -25,6 +25,7 @@ A partir de um único arquivo corretamente preenchido, o sistema é capaz de:
 # Porque o projeto existe?
 O projeto nasceu da necessidade de aplicar meus conhecimentos em um contexto real e tangível. Layouts bancários possuem regras rígidas, estruturas previsíveis, validações críticas e um ciclo bem definido (entrada -> processamento -> saída). Esse contexto me permitiu focar em uma arquitetura limpa e extensível, separação clara de responsablidades, modelagem de domínio realista. Então, em vez de criar regras artificiais, o projeto se apoia em regras reais do mercado, comuns em sistema bancários, ERPs e plataformas financeiras.
 <br/>
+
 Desde sua concepção, o BoletoFácil foi projetado para crescer sem impacto no core da aplicação, permitindo a inclusão de novos bancos, layouts e fluxos com baixo acoplamento.
 
 # Como usar?
@@ -154,3 +155,4 @@ BoletoFacil (Solution)
 - Leitura de retornos bancários
 - Camada de validação para os endereços (busca CEP)
 - Testes unitários
+
