@@ -1,3 +1,4 @@
+using BoletoFacil.Api.Extensions;
 using BoletoFacil.Api.Middlewares;
 using BoletoFacil.Infrastructure.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,6 +13,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddSwaggerExtension();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -31,6 +34,7 @@ app.UseHttpsRedirection();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.UseAuthorization();
+app.UseStaticFiles();
 
 app.MapControllers();
 

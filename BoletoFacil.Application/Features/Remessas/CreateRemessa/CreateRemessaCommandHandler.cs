@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BoletoFacil.Application.Features.Remessas.CreateRemessa;
 
-public class CreateRemessaCommandHandler : IRequestHandler<CreateRemessaCommand, string>
+public class CreateRemessaCommandHandler : IRequestHandler<CreateRemessaCommand, byte[]>
 {
     private readonly IRemessaService _remessaService;
 
@@ -12,7 +12,7 @@ public class CreateRemessaCommandHandler : IRequestHandler<CreateRemessaCommand,
         _remessaService = remessaService;   
     }
 
-    public async Task<string> Handle(CreateRemessaCommand request, CancellationToken cancellationToken)
+    public async Task<byte[]> Handle(CreateRemessaCommand request, CancellationToken cancellationToken)
     {
         //A função principal do handle  não é executar nenhuma tarefa bruta (como acessar o banco de dados),
         // mas sim ORQUESTRAR a sequência dos passos que definem o processo (a lógica de negócio complexa).

@@ -92,8 +92,6 @@ public class GlobalExceptionMiddleware
             g => g.Select(e => e.ErrorMessage).ToArray()
         );
 
-
         return problem;
     }
-
 }

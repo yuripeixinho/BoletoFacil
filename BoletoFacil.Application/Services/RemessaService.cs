@@ -5,8 +5,7 @@ using BoletoFacil.Application.Interfaces.Repositories;
 using BoletoFacil.Application.Interfaces.Services;
 using BoletoFacil.Application.Validation.Business;
 using BoletoFacil.Domain.Core.Entities.Common;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
+using System.Text;
 
 namespace BoletoFacil.Application.Services;
 
@@ -15,7 +14,6 @@ public class RemessaService : IRemessaService
     private readonly IRemessaFactory _remessaFactory;
     private readonly IRemessaBusinessValidator _remessaBusinessValidator;
     private readonly IExcelRepository _excelRepository;
-    private readonly IArquivoService _arquivoService;
     private readonly IValidationRemessaService _validator;
     private readonly IRemessaRepository _remessaRepository;
     private readonly IMapper _mapper;
@@ -25,7 +23,6 @@ public class RemessaService : IRemessaService
         IRemessaFactory remessaFactory,
         IRemessaBusinessValidator remessaBusinessValidator,
         IExcelRepository excelRepository,
-        IArquivoService arquivoService,
         IValidationRemessaService validationRemessaService,
         IRemessaRepository remessaRepository,
         IMapper mapper,
@@ -34,14 +31,13 @@ public class RemessaService : IRemessaService
         _remessaFactory = remessaFactory;
         _remessaBusinessValidator = remessaBusinessValidator;
         _excelRepository = excelRepository;
-        _arquivoService = arquivoService;
         _validator = validationRemessaService;
         _remessaRepository = remessaRepository;
         _mapper = mapper;
         _regrasCNABFactory = regrasCNABFactory;
     }
 
-    public async Task<string> GerarRemessaAsync(ExcelRemessaDTO excelRemessaDTO)
+    public async Task<byte[]> GerarRemessaAsync(ExcelRemessaDTO excelRemessaDTO)
     {
         // ler e identificar baseado na planilha
         var dados = IdentificarBancoELayoutCNAB(excelRemessaDTO);
@@ -56,7 +52,6 @@ public class RemessaService : IRemessaService
         var cnab = layout.CarregarLayoutEspecifico(dados); // A partir da escolha do Factory gera o Strategy para o banco e layout correspondente
 
         // mapear informações DTO para persistência na base de dados (entidades)
-
         var header = new Header(
             agencia: dados.HeaderDTO.Agencia,
             conta: dados.HeaderDTO.Conta,
@@ -105,10 +100,7 @@ public class RemessaService : IRemessaService
         // consistir na base de dados
         await _remessaRepository.SalvarRemessaAsync(remessaEntity);
 
-        // exportar txt 
-        _arquivoService.ExportarArquivoTXT(cnab);
-            
-        return "Arquivo gerado com sucesso";
+        return Encoding.UTF8.GetBytes(cnab);
     }
 
     private RemessaDTO IdentificarBancoELayoutCNAB(ExcelRemessaDTO excelRemessaDTO)

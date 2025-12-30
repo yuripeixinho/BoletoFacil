@@ -39,7 +39,6 @@ public static class DependencyInjection
 
         // Services
         services.AddScoped<IRemessaService, RemessaService>();
-        services.AddScoped<IArquivoService, ArquivoService>();
         services.AddScoped<IValidationRemessaService, ValidationRemessaService>();
         services.AddScoped<Itau400RegrasCNABService>();
 
