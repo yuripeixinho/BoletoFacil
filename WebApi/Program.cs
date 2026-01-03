@@ -20,14 +20,14 @@ builder.Services.AddSwaggerExtension();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();  
+var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BoletoFacil API v1");
+    c.RoutePrefix = "swagger"; // mantém /swagger
+});
 
 app.UseHttpsRedirection();
 
