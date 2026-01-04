@@ -57,7 +57,7 @@ Coverage/
 
 # Publish artifacts
 publish/
-wwwroot/
+# wwwroot/
 
 # Entity Framework Migrations
 Migrations/
