@@ -1,5 +1,6 @@
 using BoletoFacil.Api.Extensions;
 using BoletoFacil.Api.Middlewares;
+using BoletoFacil.Infrastructure.Extensions;
 using BoletoFacil.Infrastructure.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
@@ -21,6 +22,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+if (app.Environment.IsProduction())
+{
+    app.ApplyMigrations();
+}
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
