@@ -1,6 +1,5 @@
 using BoletoFacil.Api.Extensions;
 using BoletoFacil.Api.Middlewares;
-using BoletoFacil.Infrastructure.Extensions;
 using BoletoFacil.Infrastructure.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
