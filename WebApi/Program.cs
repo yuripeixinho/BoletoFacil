@@ -23,8 +23,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.ApplyMigrations();
-
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
