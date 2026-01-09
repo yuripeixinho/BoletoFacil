@@ -19,9 +19,13 @@
     <PackageReference Include="Microsoft.Identity.Web.DownstreamApi" Version="3.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
-	
 
-  <ItemGroup>
+	<PropertyGroup>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\BoletoFacil.Application\BoletoFacil.Application.csproj" />
     <ProjectReference Include="..\BoletoFacil.Infrastructure\BoletoFacil.Infrastructure.csproj" />
   </ItemGroup>

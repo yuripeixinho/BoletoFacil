@@ -16,6 +16,18 @@ public class RemessaController : ControllerBase
         _mediator = mediator;   
     }
 
+    /// <summary>
+    /// Realiza o download do template de planilha para remessa CNAB 400 do Banco Itaú.
+    /// </summary>
+    /// <remarks>
+    /// Este endpoint disponibiliza um arquivo modelo em formato Excel (.xlsx),
+    /// utilizado como base para o preenchimento dos dados necessários à geração
+    /// do arquivo de remessa CNAB 400 no BoletoFácil.
+    ///
+    /// O template segue o layout padrão exigido pelo Banco Itaú, garantindo
+    /// compatibilidade e reduzindo erros de validação durante o processamento
+    /// da remessa bancária.
+    /// </remarks>
     [HttpGet("excel/templates/itau-cnab400")]
     [Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
     public IActionResult DownloadTemplateItau400([FromServices] IWebHostEnvironment env)
@@ -38,6 +50,15 @@ public class RemessaController : ControllerBase
         );
     }
 
+
+    /// <summary>
+    /// Gerar CNAB eletrônico baseado na planilha enviada
+    /// </summary>
+    /// <remarks>
+    /// Este endpoint realiza a leitura da planilha e identifica o layout e banco automaticamente. 
+    /// 
+    /// Com base na planilha enviada, o endpoint identifica o banco e layout e gera o arquivo bancário apropriado.
+    /// </remarks>
     [HttpPost("excel/generate")]
     public async Task<IActionResult> GerarCnabExcel([FromForm] ExcelRemessaDTO ExcelRemessaDTO)
     {
