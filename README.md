@@ -13,8 +13,8 @@
 
 
 # Objetivo do projeto
-O BoletoFácil é uma aplicação backend desenvolvida para automatizar a geração de arquivos de cobrança bancária (CNAB) a partir de uma planilha estruturada.
-A partir de um único arquivo corretamente preenchido, o sistema é capaz de:
+O BoletoFácil é uma aplicação backend desenvolvida para automatizar a geração de arquivos de cobrança bancária (CNAB) a partir de uma planilha estruturada, por meio de um 
+um único arquivo corretamente preenchido. O sistema é capaz de:
 - Interpretar dados financeiros e cadastrais
 - Identificar layout e banco específico
 - Aplicar regras bancárias específicas por banco
@@ -155,4 +155,5 @@ BoletoFacil (Solution)
 - Leitura de retornos bancários
 - Camada de validação para os endereços (busca CEP)
 - Testes unitários
+
 
